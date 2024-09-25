@@ -1,0 +1,6 @@
+node_modules/
+dist/
+public
+.eslintcache
+jest.config.js
+src/reportWebVitals.ts
