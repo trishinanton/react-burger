@@ -1,7 +1,7 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
+import PropTypes from "prop-types";
 
-import { data } from "../../store";
 import { OrderDetailsModal } from "../OrderDetailsModal";
 import { Price } from "../Price";
 import { Ingredient } from "./Ingredient";
@@ -9,12 +9,12 @@ import { useBurgerConstructorData } from "./useBurgerConstructorData";
 
 import styles from "./BurgerConstructor.module.css"
 
-export const BurgerConstructor = () => {
+export const BurgerConstructor = ({ data }) => {
 
     const {
         isOpenOrderModal,
         onClickOrder,
-        onCloseOrderModal
+        onCloseOrderModal,
     } = useBurgerConstructorData()
 
     return (
@@ -58,4 +58,8 @@ export const BurgerConstructor = () => {
             </div>
         </div>
     )
+}
+
+BurgerConstructor.propTypes = {
+    data: PropTypes.array.isRequired
 }

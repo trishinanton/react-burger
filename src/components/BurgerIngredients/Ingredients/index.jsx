@@ -1,13 +1,14 @@
-import { data } from "../../../store";
+import PropTypes from "prop-types";
+
 import { IngredientItem } from "../../IngredientItem";
 
 import styles from "./Ingredients.module.css";
 
-const buns = data.filter(({ type }) => type === "bun")
-const sauces = data.filter(({ type }) => type === "sauce")
-const main = data.filter(({ type }) => type === "main")
+export const Ingredients = ({ data }) => {
+    const buns = data.filter(({ type }) => type === "bun")
+    const sauces = data.filter(({ type }) => type === "sauce")
+    const main = data.filter(({ type }) => type === "main")
 
-export const Ingredients = () => {
   return (
     <div className={styles.container}>
       <span className={"text text_type_main-medium mt-10"}>Булки</span>
@@ -53,4 +54,8 @@ export const Ingredients = () => {
       </div>
     </div>
   )
+}
+
+Ingredients.propTypes = {
+    data: PropTypes.array.isRequired
 }

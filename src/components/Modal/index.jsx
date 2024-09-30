@@ -1,31 +1,14 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
-import { useCallback } from "react";
 
 import { ModalOverlay } from "../ModalOverlay";
+import { useModalData } from "./useModalData";
 
 import styles from "./Modal.module.css"
 
 export const Modal = ({ isOpen, onClose, children }) => {
-    const callbackEscape = useCallback((event) => {
-        if(event.key === "Escape") {
-            onClose()
-        }
-    },[onClose])
-
-    useEffect(() => {
-        if(isOpen) {
-            document.body.addEventListener("keyup", callbackEscape)
-        }
-
-        return () => {
-            if(isOpen) {
-                document.body.removeEventListener("keyup", callbackEscape)
-            }
-        }
-    },[isOpen, callbackEscape])
+    useModalData(isOpen, onClose)
 
     return <ModalOverlay isOpen={isOpen}>
         <div className={cn(styles.container, "pl-10 pr-10 pb-15 pt-10") }>

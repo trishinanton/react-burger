@@ -13,7 +13,9 @@ export const ModalOverlay = ({ children, isOpen }) => {
     return createPortal(
         <div className={styles.container}>
             <div className={cn(styles.content, "pt-10")}>{children}</div>
-        </div>, modalRoot)
+        </div>,
+        modalRoot
+    )
 }
 
 ModalOverlay.propTypes = {

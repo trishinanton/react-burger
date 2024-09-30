@@ -4,3 +4,4 @@ public
 .eslintcache
 jest.config.js
 src/reportWebVitals.ts
+src/store/
