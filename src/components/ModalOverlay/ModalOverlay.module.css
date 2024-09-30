@@ -1,0 +1,15 @@
+.container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(36, 38, 41, .64);
+    z-index: 1400;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

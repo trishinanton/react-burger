@@ -10,7 +10,7 @@ const main = data.filter(({ type }) => type === "main")
 export const Ingredients = () => {
   return (
     <div className={styles.container}>
-      <span className={"text text_type_main-medium margin-top-40"}>Булки</span>
+      <span className={"text text_type_main-medium mt-10"}>Булки</span>
       <div className={"flex-row-fs-w"}>
         {buns.map(({ _id, price, name, image }) => (
           <IngredientItem
@@ -24,7 +24,7 @@ export const Ingredients = () => {
         ))}
       </div>
 
-      <span className={"text text_type_main-medium margin-top-40"}>Соусы</span>
+      <span className={"text text_type_main-medium mt-10"}>Соусы</span>
       <div className={"flex-row-fs-w"}>
         {sauces.map(({ _id, price, name, image }) => (
           <IngredientItem
@@ -38,7 +38,7 @@ export const Ingredients = () => {
         ))}
       </div>
 
-      <span className={"text text_type_main-medium margin-top-40"}>Начинка</span>
+      <span className={"text text_type_main-medium mt-10"}>Начинка</span>
       <div className={"flex-row-fs-w"}>
         {main.map(({ _id, price, name, image }) => (
           <IngredientItem

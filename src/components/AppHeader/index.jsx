@@ -8,17 +8,18 @@ export const AppHeader = () => {
         <div className={"flex-row-fs"}>
             <div className={cn("flex-row-fs", styles.item)}>
                 <BurgerIcon type="primary" />
-                <span className={"margin-left-8"}>Конструктор</span>
+                <span className={"ml-2"}>Конструктор</span>
             </div>
             <div className={cn("flex-row-fs", styles.item)}>
                 <ListIcon type="secondary" />
-                <span className={"secondary-text margin-left-8"}>Лента заказов</span>
+                <span className={"secondary-text ml-2"}>Лента заказов</span>
             </div>
         </div>
         <Logo />
+
         <div className={"flex-row-fs"}>
             <ProfileIcon type="secondary" />
-            <span className={"secondary-text margin-left-8"}>Личный кабинет</span>
+            <span className={"secondary-text ml-2"}>Личный кабинет</span>
         </div>
     </header>
 

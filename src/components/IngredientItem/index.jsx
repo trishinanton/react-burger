@@ -15,7 +15,7 @@ export const IngredientItem = ({ price,name,image, count, wrapperClassName }) =>
                 classNameCount="text text_type_digits-default"
                 price={price}
             />
-            <span className="text text_type_main-default margin-top-8">{name}</span>
+            <span className="text text_type_main-default mt-2">{name}</span>
             <Counter className={styles.counter} count={count} size="small" />
         </div>
     )

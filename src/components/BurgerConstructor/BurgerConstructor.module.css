@@ -24,3 +24,7 @@
 .count_wrapper {
     margin-top: 40px;
 }
+
+.ingredient:hover {
+    cursor: pointer;
+}
