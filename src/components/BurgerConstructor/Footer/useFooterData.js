@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-export const useBurgerConstructorData = () => {
+export const useFooterData = () => {
     const [isOpenOrderModal, setIsOpenOrderModal] = useState(false)
 
     const onClickOrder = useCallback(() => {

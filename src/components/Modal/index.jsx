@@ -8,10 +8,10 @@ import { useModalData } from "./useModalData";
 import styles from "./Modal.module.css"
 
 export const Modal = ({ isOpen, onClose, children }) => {
-    useModalData(isOpen, onClose)
+    const { ref } = useModalData(isOpen, onClose)
 
     return <ModalOverlay isOpen={isOpen}>
-        <div className={cn(styles.container, "pl-10 pr-10 pb-15 pt-10") }>
+        <div ref={ref} className={cn(styles.container, "pl-10 pr-10 pb-15 pt-10") }>
             {children}
             <CloseIcon onClick={onClose} type="primary" className={styles.close} />
         </div>

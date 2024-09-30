@@ -1,64 +1,55 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import cn from "classnames";
 import PropTypes from "prop-types";
 
+import { IngredientItemDefault, IngredientItemType } from "../../../utils/types";
 import { IngredientDetailsModal } from "../../IngredientDetailsModal";
 import { useIngredientData } from "./useIngredientData";
 
 import styles from "../BurgerConstructor.module.css";
 
-export const Ingredient = ({
-                               name,
-                               price,
-                               image,
-                               calories,
-                               proteins,
-                               fat,
-                               carbohydrates,
-                           }) => {
+export const Ingredient = ({ ingredientItem, type, isLocked, wrapperClassName }) => {
+    const {
+        name,
+        price,
+        image,
+    } = ingredientItem
+
     const {
         isOpenIngredientModal,
         onClickIngredient,
-        onCloseIngredientModal
-    } = useIngredientData()
+        onCloseIngredientModal,
+        text
+    } = useIngredientData(type, name)
+
 
     return  <>
-        <div className={styles.ingredient} onClick={onClickIngredient}>
+        <div className={cn(styles.ingredient, wrapperClassName)} onClick={onClickIngredient}>
         <ConstructorElement
-            type={"top"}
-            isLocked={true}
-            text={name}
+            isLocked={isLocked}
+            type={type}
+            text={text}
             price={price}
             thumbnail={image}
         />
         </div>
         {isOpenIngredientModal ? <IngredientDetailsModal
-            image={image}
-            name={name}
-            calories={calories}
-            proteins={proteins}
-            fat={fat}
-            carbohydrates={carbohydrates}
+            ingredientItem={ingredientItem}
             onClose={onCloseIngredientModal}
         /> : null}
     </>
 }
 
 Ingredient.propTypes = {
-    name: PropTypes.string,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    calories: PropTypes.number,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
+    ingredientItem: IngredientItemType,
+    type: PropTypes.string,
+    isLocked: PropTypes.bool,
+    wrapperClassName: PropTypes.string
 }
 
 Ingredient.defaultProps = {
-    name:"",
-    price: 0,
-    image: "",
-    calories: 0,
-    proteins: 0,
-    fat: 0,
-    carbohydrates: 0
+    ingredientItem: IngredientItemDefault,
+    type: "",
+    isLocked: false,
+    wrapperClassName: ""
 }
