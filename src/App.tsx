@@ -1,22 +1,26 @@
 import React from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 import { AppHeader } from "./components/AppHeader";
 import { BurgerConstructor } from "./components/BurgerConstructor";
 import { BurgerIngredients } from "./components/BurgerIngredients";
-import { useIngredientsData } from "./store/modules/ingredients";
+import { useAppData } from "./hooks/useAppData";
 
 function App() {
-  const { data } = useIngredientsData()
+  useAppData()
 
   return (
     <div className="container">
       <AppHeader />
       <main>
         <h1 className="h1">Соберите бургер</h1>
-        <div className="flex-row-sb-fs">
-          <BurgerIngredients data={data}/>
-          <BurgerConstructor data={data} />
-        </div>
+        <DndProvider backend={HTML5Backend}>
+          <div className="flex-row-sb-fs">
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </div>
+        </DndProvider>
       </main>
     </div>
   );

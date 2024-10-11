@@ -22,3 +22,8 @@
 .ingredient:hover {
     cursor: pointer;
 }
+
+.emptyWrapper {
+    border: dashed red;
+    padding: 80px;
+}

@@ -12,13 +12,14 @@ export const Footer = () => {
         isOpenOrderModal,
         onClickOrder,
         onCloseOrderModal,
+        commonPrice
     } = useFooterData()
 
     return <div className={cn("flex-row-fe", styles.container)}>
         <Price
             classNameCurrency={styles.icon}
             classNameCount="text text_type_digits-medium"
-            price={610}
+            price={commonPrice}
         />
         <Button
             htmlType="button"
