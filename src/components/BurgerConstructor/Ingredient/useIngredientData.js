@@ -1,15 +1,6 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 export const useIngredientData = (type, name) => {
-    const [isOpenIngredientModal, setIsOpenIngredientModal] = useState(false)
-
-    const onClickIngredient = useCallback(() => {
-        setIsOpenIngredientModal(true)
-    },[])
-
-    const onCloseIngredientModal = useCallback(() => {
-        setIsOpenIngredientModal(false)
-    },[])
 
     const text = useMemo(() => {
         if(type === "top") {
@@ -24,9 +15,6 @@ export const useIngredientData = (type, name) => {
     }, [type, name])
 
     return {
-        isOpenIngredientModal,
-        onClickIngredient,
-        onCloseIngredientModal,
         text
     }
 }

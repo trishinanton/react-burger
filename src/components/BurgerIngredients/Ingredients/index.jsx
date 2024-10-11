@@ -13,26 +13,24 @@ export const Ingredients = ({ data }) => {
     <div className={styles.container}>
       <span className={"text text_type_main-medium mt-10"}>Булки</span>
       <div className={"flex-row-fs-w"}>
-        {buns.map(({ _id, price, name, image }) => (
-          <IngredientItem
-            key={_id}
-            price={price}
-            name={name}
-            image={image}
-            count={1}
-            wrapperClassName={styles.wrapper_ingredient}
-          />
-        ))}
+        {buns.map(item => {
+            return (
+                <IngredientItem
+                    key={item._id}
+                    item={item}
+                    count={1}
+                    wrapperClassName={styles.wrapper_ingredient}
+                />
+            )
+        })}
       </div>
 
       <span className={"text text_type_main-medium mt-10"}>Соусы</span>
       <div className={"flex-row-fs-w"}>
-        {sauces.map(({ _id, price, name, image }) => (
+        {sauces.map(item => (
           <IngredientItem
-            key={_id}
-            price={price}
-            name={name}
-            image={image}
+            key={item._id}
+            item={item}
             count={1}
             wrapperClassName={styles.wrapper_ingredient}
           />
@@ -41,12 +39,10 @@ export const Ingredients = ({ data }) => {
 
       <span className={"text text_type_main-medium mt-10"}>Начинка</span>
       <div className={"flex-row-fs-w"}>
-        {main.map(({ _id, price, name, image }) => (
+        {main.map(item => (
           <IngredientItem
-            key={_id}
-            price={price}
-            name={name}
-            image={image}
+            key={item._id}
+            item={item}
             count={1}
             wrapperClassName={styles.wrapper_ingredient}
           />

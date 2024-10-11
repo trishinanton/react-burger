@@ -3,7 +3,6 @@ import cn from "classnames";
 import PropTypes from "prop-types";
 
 import { IngredientItemDefault, IngredientItemType } from "../../../utils/types";
-import { IngredientDetailsModal } from "../../IngredientDetailsModal";
 import { useIngredientData } from "./useIngredientData";
 
 import styles from "../BurgerConstructor.module.css";
@@ -15,16 +14,10 @@ export const Ingredient = ({ ingredientItem, type, isLocked, wrapperClassName })
         image,
     } = ingredientItem
 
-    const {
-        isOpenIngredientModal,
-        onClickIngredient,
-        onCloseIngredientModal,
-        text
-    } = useIngredientData(type, name)
-
+    const { text } = useIngredientData(type, name)
 
     return  <>
-        <div className={cn(styles.ingredient, wrapperClassName)} onClick={onClickIngredient}>
+        <div className={cn(styles.ingredient, wrapperClassName)}>
         <ConstructorElement
             isLocked={isLocked}
             type={type}
@@ -33,10 +26,6 @@ export const Ingredient = ({ ingredientItem, type, isLocked, wrapperClassName })
             thumbnail={image}
         />
         </div>
-        {isOpenIngredientModal ? <IngredientDetailsModal
-            ingredientItem={ingredientItem}
-            onClose={onCloseIngredientModal}
-        /> : null}
     </>
 }
 
