@@ -6,12 +6,12 @@ import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 
 import { removeIngredient } from "../../../store/modules/constructor/constructor.reducer";
-import { IngredientItemDefault, IngredientItemType } from "../../../utils/types";
+import { IngredientItemType } from "../../../utils/types";
 import { useIngredientData } from "./useIngredientData";
 
 import styles from "../BurgerConstructor.module.css";
 
-export const Ingredient = ({ setHoverItemId, onDropHandler, item, type, isLocked, wrapperClassName }) => {
+export const Ingredient = ({ setHoverItemUUId, onDropHandler, item, type, isLocked, wrapperClassName }) => {
     const {
         name,
         price,
@@ -22,15 +22,12 @@ export const Ingredient = ({ setHoverItemId, onDropHandler, item, type, isLocked
     const { text } = useIngredientData(type, name)
 
     const onDeleteElement = useCallback(() => {
-        dispatch(removeIngredient(item._id))
+        dispatch(removeIngredient(item))
     },[])
 
     const [,dragRef] = useDrag({
         type: "main",
-        item: { item },
-        collect: monitor => ({
-            isDrag: monitor.isDragging()
-        })
+        item: { item }
     });
 
     const [{ isHover }, dropTarget] = useDrop({
@@ -45,15 +42,9 @@ export const Ingredient = ({ setHoverItemId, onDropHandler, item, type, isLocked
 
     useEffect(() =>{
         if(isHover) {
-            setHoverItemId(item._id)
+            setHoverItemUUId(item.uuid)
         }
-    },[isHover,setHoverItemId])
-
-    // useEffect(() => {
-    //     if(isDrag) {
-    //         onDeleteElement()
-    //     }
-    // },[isDrag, onDeleteElement])
+    },[isHover,setHoverItemUUId, item.uuid])
 
     return  <>
         <div ref={dragRef} className={cn(styles.ingredient, wrapperClassName)}>
@@ -77,14 +68,5 @@ Ingredient.propTypes = {
     isLocked: PropTypes.bool,
     wrapperClassName: PropTypes.string,
     onDropHandler: PropTypes.func,
-    setHoverItemId: PropTypes.func
-}
-
-Ingredient.defaultProps = {
-    item: IngredientItemDefault,
-    type: "",
-    isLocked: false,
-    wrapperClassName: "",
-    onDropHandler: Function.prototype,
-    setHoverItemId: Function.prototype
+    setHoverItemUUId: PropTypes.func
 }

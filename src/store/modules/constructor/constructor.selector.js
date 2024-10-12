@@ -15,7 +15,7 @@ export const selectCurrentBun = createSelector(
 
 export const selectCountIngredient = createSelector(
     [selectConstructor, (_, id) => id],
-    (store, id) => store.countIngredients[id]
+    (store, id) => store.countIngredients[id] ? store.countIngredients[id].length : null
 )
 
 export const selectAllCount = createSelector(

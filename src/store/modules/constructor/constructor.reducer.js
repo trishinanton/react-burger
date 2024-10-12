@@ -8,7 +8,7 @@ const initialState = {
 }
 
 export const constructorAdapter = createEntityAdapter({
-    selectId: ingredient => ingredient._id
+    selectId: ingredient => ingredient.uuid
 });
 
 const { setAll, addOne, removeOne } = constructorAdapter;
@@ -18,26 +18,24 @@ const constructorSlice = createSlice({
     initialState,
     reducers: {
         addIngredient: (state, {payload}) => {
-            const { type, _id } = payload
+            const { type, _id, uuid } = payload
 
             if(type === 'bun') {
                 if(state.currentBun?._id) {
-                    removeOne(state, state.currentBun._id)
-                    state.countIngredients[state.currentBun._id] = 0
+                    removeOne(state, state.currentBun.uuid)
+                    state.countIngredients[state.currentBun._id] = []
                 }
-                state.countIngredients[_id] = 1
+                state.countIngredients[_id] = [uuid]
                 state.currentBun = payload
             } else {
                 addOne(state, payload)
-                state.countIngredients[_id] = (state.countIngredients[_id] || 0) + 1
+                state.countIngredients[_id] = (state.countIngredients[_id] || []).concat(uuid)
             }
         },
-        removeIngredient: (state, {payload: id}) => {
-            state.countIngredients[id] = state.countIngredients[id] - 1
-
-            if(state.countIngredients[id] === 0) {
-                removeOne(state, id)
-            }
+        removeIngredient: (state, {payload: item}) => {
+            const {_id, uuid} = item
+            state.countIngredients[_id] = state.countIngredients[_id]?.filter(id => id !== uuid)
+            removeOne(state, uuid)
         },
         setAllIngredients: (state, {payload}) => {
             setAll(state, payload)

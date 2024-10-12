@@ -1,6 +1,6 @@
 import cn from "classnames";
 
-import { IngredientItemDefault, IngredientItemType } from "../../utils/types";
+import { IngredientItemType } from "../../utils/types";
 import { NutritionalValueItem } from "./NutritionalValueItem";
 
 import styles from "./IngredientDetailsContent.module.css";
@@ -30,8 +30,4 @@ export const IngredientDetailsContent = ({ ingredientItem }) => {
 
 IngredientDetailsContent.propTypes = {
     ingredientItem: IngredientItemType
-}
-
-IngredientDetailsContent.defaultProps = {
-    ingredientItem: IngredientItemDefault
 }

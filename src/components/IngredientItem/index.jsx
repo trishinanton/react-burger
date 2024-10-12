@@ -6,7 +6,7 @@ import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
 
 import { selectCountIngredient } from "../../store/modules/constructor/constructor.selector";
-import { IngredientItemDefault, IngredientItemType } from "../../utils/types";
+import { IngredientItemType } from "../../utils/types";
 import { IngredientDetailsModal } from "../IngredientDetailsModal";
 import { Price } from "../Price";
 import { useIngredientItemData } from "./useIngredientItemData";
@@ -55,9 +55,4 @@ export const IngredientItem = ({ item, wrapperClassName }) => {
 IngredientItem.propTypes = {
     item:IngredientItemType,
     wrapperClassName: PropTypes.string,
-}
-
-IngredientItem.defaultProps = {
-    item: IngredientItemDefault,
-    wrapperClassName:""
 }
