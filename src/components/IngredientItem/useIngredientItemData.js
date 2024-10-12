@@ -1,6 +1,10 @@
 import { useCallback, useState } from "react";
+import { useDrag } from "react-dnd";
+import { useSelector } from "react-redux";
 
-export const useIngredientItemData = () => {
+import { selectCountIngredient } from "../../store/modules/constructor/constructor.selector";
+
+export const useIngredientItemData = (item) => {
     const [isOpenIngredientModal, setIsOpenIngredientModal] = useState(false)
 
     const onClickIngredient = useCallback(() => {
@@ -11,9 +15,19 @@ export const useIngredientItemData = () => {
         setIsOpenIngredientModal(false)
     },[])
 
+    const getCountIngredient = useCallback(state => selectCountIngredient(state, item._id), [item._id]);
+    const count = useSelector(getCountIngredient)
+
+    const [,dragRef] = useDrag({
+        type: "ingredient",
+        item: { item }
+    });
+
     return {
         isOpenIngredientModal,
         onClickIngredient,
-        onCloseIngredientModal
+        onCloseIngredientModal,
+        dragRef,
+        count
     }
 }

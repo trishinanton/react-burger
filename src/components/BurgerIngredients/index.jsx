@@ -1,16 +1,17 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
-import { useState } from "react";
-import { useSelector } from "react-redux";
 
-import { selectIngredientsList } from "../../store/modules/ingredients/ingredients.selector";
 import { Ingredients } from "./Ingredients";
+import { useBurgerIngredientsData } from "./useBurgerIngredientsData";
 
 import styles from "./BurgerIngredients.module.css"
 
 export const BurgerIngredients = () => {
-    const [current, setCurrent] = useState("buns")
-    const data = useSelector(selectIngredientsList)
+   const {
+       current,
+       setCurrent,
+       data
+   } = useBurgerIngredientsData()
 
     return (
         <div className={cn("flex-col-fs", styles.container)}>

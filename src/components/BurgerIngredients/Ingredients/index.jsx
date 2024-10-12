@@ -1,42 +1,20 @@
 import PropTypes from "prop-types";
-import { useEffect, useRef } from "react";
-import { useInView } from "react-intersection-observer";
 
 import { IngredientItem } from "../../IngredientItem";
+import { useIngredientsData } from "./useIngredientsData";
 
 import styles from "./Ingredients.module.css";
 
 export const Ingredients = ({ data, setCurrentTab }) => {
-    const buns = data.filter(({ type }) => type === "bun")
-    const sauces = data.filter(({ type }) => type === "sauce")
-    const main = data.filter(({ type }) => type === "main")
-
-    const refRoot = useRef()
-
-    const [refBuns, inViewBuns] = useInView({
-        threshold: 1,
-        root: refRoot.current
-    });
-
-    const [refSauces, inViewSauces] = useInView({
-        threshold: 1,
-        root: refRoot.current
-    });
-
-    const [refMain, inViewMain] = useInView({
-        threshold: 1,
-        root: refRoot.current
-    });
-
-    useEffect(() => {
-        if(inViewBuns) {
-            setCurrentTab("buns")
-        } else if(inViewSauces) {
-            setCurrentTab("sauces")
-        } else {
-            setCurrentTab("fillings")
-        }
-    },[inViewBuns, inViewSauces, inViewMain])
+   const {
+       refRoot,
+       refBuns,
+       refSauces,
+       refMain,
+       buns,
+       sauces,
+       main
+   } = useIngredientsData({ data, setCurrentTab })
 
   return (
     <div ref={refRoot} className={styles.container}>

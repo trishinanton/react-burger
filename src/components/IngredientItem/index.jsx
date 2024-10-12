@@ -1,11 +1,7 @@
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import PropTypes from "prop-types";
-import { useCallback } from "react";
-import { useDrag } from "react-dnd";
-import { useSelector } from "react-redux";
 
-import { selectCountIngredient } from "../../store/modules/constructor/constructor.selector";
 import { IngredientItemType } from "../../utils/types";
 import { IngredientDetailsModal } from "../IngredientDetailsModal";
 import { Price } from "../Price";
@@ -14,20 +10,14 @@ import { useIngredientItemData } from "./useIngredientItemData";
 import styles from "./IngredientItem.module.css";
 
 export const IngredientItem = ({ item, wrapperClassName }) => {
-    const { price,name,image,_id } = item
+    const { price,name,image } = item
     const {
         isOpenIngredientModal,
         onClickIngredient,
-        onCloseIngredientModal
-    } = useIngredientItemData()
-
-    const getCountIngredient = useCallback(state => selectCountIngredient(state, _id), [_id]);
-    const count = useSelector(getCountIngredient)
-
-    const [,dragRef] = useDrag({
-        type: "ingredient",
-        item: { item }
-    });
+        onCloseIngredientModal,
+        dragRef,
+        count
+    } = useIngredientItemData(item)
 
     return (
         <>

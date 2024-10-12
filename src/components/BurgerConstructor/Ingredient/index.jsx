@@ -1,11 +1,7 @@
-import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import PropTypes from "prop-types";
-import { useCallback, useEffect } from "react";
-import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
 
-import { removeIngredient } from "../../../store/modules/constructor/constructor.reducer";
 import { IngredientItemType } from "../../../utils/types";
 import { useIngredientData } from "./useIngredientData";
 
@@ -18,37 +14,25 @@ export const Ingredient = ({ setHoverItemUUId, onDropHandler, item, type, isLock
         image,
     } = item
 
-    const dispatch = useDispatch()
-    const { text } = useIngredientData(type, name)
+    const {
+        text,
+        dragRef,
+        dropTarget,
+        onDeleteElement
+    } = useIngredientData({
+        type,
+        name,
+        setHoverItemUUId,
+        onDropHandler,
+        item
+    })
 
-    const onDeleteElement = useCallback(() => {
-        dispatch(removeIngredient(item))
-    },[])
-
-    const [,dragRef] = useDrag({
-        type: "main",
-        item: { item }
-    });
-
-    const [{ isHover }, dropTarget] = useDrop({
-        accept: "main",
-        drop({ item }) {
-            onDropHandler( item );
-        },
-        collect: monitor => ({
-            isHover: monitor.isOver(),
-        })
-    });
-
-    useEffect(() =>{
-        if(isHover) {
-            setHoverItemUUId(item.uuid)
-        }
-    },[isHover,setHoverItemUUId, item.uuid])
-
-    return  <>
-        <div ref={dragRef} className={cn(styles.ingredient, wrapperClassName)}>
-        <div ref={dropTarget}>
+    return  <div
+        ref={(el)=> {dragRef(el); dropTarget(el);}}
+        className={cn(styles.container,"flex-row-fs")}
+    >
+        {item.type !== "bun" ? <DragIcon className="mr-3" type="primary" /> : null}
+        <div className={cn(styles.ingredient, wrapperClassName)}>
             <ConstructorElement
                 isLocked={isLocked}
                 type={type}
@@ -58,8 +42,7 @@ export const Ingredient = ({ setHoverItemUUId, onDropHandler, item, type, isLock
                 handleClose={onDeleteElement}
             />
         </div>
-        </div>
-    </>
+    </div>
 }
 
 Ingredient.propTypes = {
