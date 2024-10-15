@@ -1,15 +1,30 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo } from "react";
+import { useCallback, useEffect } from "react";
+import { useDrag, useDrop } from "react-dnd";
+import { useDispatch } from "react-redux";
 
-export const useIngredientData = (type, name) => {
-    const [isOpenIngredientModal, setIsOpenIngredientModal] = useState(false)
+import { removeIngredient } from "../../../store/modules/constructor/constructor.reducer";
 
-    const onClickIngredient = useCallback(() => {
-        setIsOpenIngredientModal(true)
+export const useIngredientData = ({ type, name, setHoverItemUUId, onDropHandler, item }) => {
+    const dispatch = useDispatch()
+    const onDeleteElement = useCallback(() => {
+        dispatch(removeIngredient(item))
     },[])
 
-    const onCloseIngredientModal = useCallback(() => {
-        setIsOpenIngredientModal(false)
-    },[])
+    const [,dragRef] = useDrag({
+        type: "main",
+        item: { item }
+    });
+
+    const [{ isHover }, dropTarget] = useDrop({
+        accept: "main",
+        drop({ item }) {
+            onDropHandler( item );
+        },
+        collect: monitor => ({
+            isHover: monitor.isOver(),
+        })
+    });
 
     const text = useMemo(() => {
         if(type === "top") {
@@ -23,10 +38,16 @@ export const useIngredientData = (type, name) => {
         return name
     }, [type, name])
 
+    useEffect(() =>{
+        if(isHover) {
+            setHoverItemUUId(item.uuid)
+        }
+    },[isHover,setHoverItemUUId, item.uuid])
+
     return {
-        isOpenIngredientModal,
-        onClickIngredient,
-        onCloseIngredientModal,
-        text
+        text,
+        dragRef,
+        dropTarget,
+        onDeleteElement
     }
 }

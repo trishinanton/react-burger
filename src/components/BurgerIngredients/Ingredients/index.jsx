@@ -1,53 +1,53 @@
 import PropTypes from "prop-types";
 
 import { IngredientItem } from "../../IngredientItem";
+import { useIngredientsData } from "./useIngredientsData";
 
 import styles from "./Ingredients.module.css";
 
-export const Ingredients = ({ data }) => {
-    const buns = data.filter(({ type }) => type === "bun")
-    const sauces = data.filter(({ type }) => type === "sauce")
-    const main = data.filter(({ type }) => type === "main")
+export const Ingredients = ({ data, setCurrentTab }) => {
+   const {
+       refRoot,
+       refBuns,
+       refSauces,
+       refMain,
+       buns,
+       sauces,
+       main
+   } = useIngredientsData({ data, setCurrentTab })
 
   return (
-    <div className={styles.container}>
-      <span className={"text text_type_main-medium mt-10"}>Булки</span>
+    <div ref={refRoot} className={styles.container}>
+      <span ref={refBuns} className={"text text_type_main-medium mt-10"}>Булки</span>
       <div className={"flex-row-fs-w"}>
-        {buns.map(({ _id, price, name, image }) => (
+        {buns.map(item => {
+            return (
+                <IngredientItem
+                    key={item._id}
+                    item={item}
+                    wrapperClassName={styles.wrapper_ingredient}
+                />
+            )
+        })}
+      </div>
+
+      <span ref={refSauces} className={"text text_type_main-medium mt-10"}>Соусы</span>
+      <div className={"flex-row-fs-w"}>
+        {sauces.map(item => (
           <IngredientItem
-            key={_id}
-            price={price}
-            name={name}
-            image={image}
-            count={1}
+            key={item._id}
+            item={item}
             wrapperClassName={styles.wrapper_ingredient}
           />
         ))}
       </div>
 
-      <span className={"text text_type_main-medium mt-10"}>Соусы</span>
+      <span ref={refMain} className={"text text_type_main-medium mt-10"}>Начинка</span>
       <div className={"flex-row-fs-w"}>
-        {sauces.map(({ _id, price, name, image }) => (
+        {main.map(item => (
           <IngredientItem
-            key={_id}
-            price={price}
-            name={name}
-            image={image}
-            count={1}
-            wrapperClassName={styles.wrapper_ingredient}
-          />
-        ))}
-      </div>
-
-      <span className={"text text_type_main-medium mt-10"}>Начинка</span>
-      <div className={"flex-row-fs-w"}>
-        {main.map(({ _id, price, name, image }) => (
-          <IngredientItem
-            key={_id}
-            price={price}
-            name={name}
-            image={image}
-            count={1}
+            key={item._id}
+            item={item}
             wrapperClassName={styles.wrapper_ingredient}
           />
         ))}
@@ -57,5 +57,6 @@ export const Ingredients = ({ data }) => {
 }
 
 Ingredients.propTypes = {
-    data: PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    setCurrentTab:  PropTypes.func.isRequired
 }

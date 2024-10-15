@@ -1,14 +1,17 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
-import PropTypes from "prop-types";
-import { useState } from "react";
 
 import { Ingredients } from "./Ingredients";
+import { useBurgerIngredientsData } from "./useBurgerIngredientsData";
 
 import styles from "./BurgerIngredients.module.css"
 
-export const BurgerIngredients = ({ data }) => {
-    const [current, setCurrent] = useState("buns")
+export const BurgerIngredients = () => {
+   const {
+       current,
+       setCurrent,
+       data
+   } = useBurgerIngredientsData()
 
     return (
         <div className={cn("flex-col-fs", styles.container)}>
@@ -23,11 +26,7 @@ export const BurgerIngredients = ({ data }) => {
                     Начинки
                 </Tab>
             </div>
-            <Ingredients data={data} />
+            <Ingredients data={data} setCurrentTab={setCurrent} />
         </div>
     )
-}
-
-BurgerIngredients.propTypes = {
-    data: PropTypes.array.isRequired
 }

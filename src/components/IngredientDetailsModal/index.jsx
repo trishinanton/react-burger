@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import { IngredientItemDefault, IngredientItemType } from "../../utils/types";
+import { IngredientItemType } from "../../utils/types";
 import { IngredientDetailsContent } from "../IngredientDetailsContent";
 import { Modal } from "../Modal";
 
@@ -14,7 +14,3 @@ IngredientDetailsModal.propTypes = {
     onClose: PropTypes.func.isRequired,
     ingredientItem: IngredientItemType
 };
-
-IngredientDetailsModal.defaultProps = {
-    ingredientItem: IngredientItemDefault
-}
