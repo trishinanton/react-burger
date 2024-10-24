@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { fetchIngredients } from "../store/modules/ingredients/ingredients.reducer";
+import { fetchUser } from "../store/modules/user/user.reducer";
 
 export const useAppData = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(fetchIngredients())
+        dispatch(fetchUser())
     },[])
 }

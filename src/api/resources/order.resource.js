@@ -1,9 +1,14 @@
+import { COOKIE_ACCESS_TOKEN } from "../../constants/cookies";
+import { getCookie } from "../../utils/cookies";
 import { YandexApi } from "../config";
 import { resource } from "../resource";
 
 export const postOrder = ids => resource({
     url: `${YandexApi}orders`,
     method: "POST",
+    headers: {
+        authorization: getCookie(COOKIE_ACCESS_TOKEN)
+    },
     body: {
         ingredients: ids
     }

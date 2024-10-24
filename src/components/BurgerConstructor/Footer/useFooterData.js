@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import {
     selectAllCount,
@@ -8,8 +9,11 @@ import {
     selectCurrentBun
 } from "../../../store/modules/constructor/constructor.selector";
 import { createOrder } from "../../../store/modules/order/order.reducer";
+import { selectHasUser } from "../../../store/modules/user/user.selector";
 
 export const useFooterData = () => {
+    const hasUser = useSelector(selectHasUser)
+    const navigate = useNavigate()
     const [isOpenOrderModal, setIsOpenOrderModal] = useState(false)
     const dispatch = useDispatch()
 
@@ -19,11 +23,16 @@ export const useFooterData = () => {
     const currentBun = useSelector(selectCurrentBun) || {}
 
     const onClickOrder = useCallback(() => {
+        if(!hasUser) {
+            return navigate("/login")
+
+        }
         const uniqueIds = Object.keys(uniqueObjectIds)
 
         dispatch(createOrder([...uniqueIds, currentBun._id]))
         setIsOpenOrderModal(true)
-    },[uniqueObjectIds])
+
+    },[uniqueObjectIds, hasUser, navigate])
 
     const onCloseOrderModal = useCallback(() => {
         setIsOpenOrderModal(false)

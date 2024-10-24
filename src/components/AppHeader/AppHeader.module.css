@@ -4,4 +4,10 @@
 
 .item {
     padding: 16px 20px;
+    text-decoration: none;
+    color: white;
+}
+
+.active_link {
+    color: #8585AD;
 }
