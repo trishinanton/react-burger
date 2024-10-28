@@ -82,6 +82,13 @@ code {
   align-items: center;
 }
 
+.flex-col-fs-fs {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 .h1 {
   font-size: 36px;
   line-height: 40px;

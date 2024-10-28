@@ -16,3 +16,10 @@
 .active_link {
   color: #8585AD;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+

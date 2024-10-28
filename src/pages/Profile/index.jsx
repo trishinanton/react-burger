@@ -73,7 +73,7 @@ export const Profile = () => {
                 <span className={cn("text text_type_main-large mt-10", styles.link)} onClick={onClickLogout}>Выход</span>
                 <div className={"text text_type_main-small mt-20"}>В этом разделе вы можете <br />изменить свои персональные данные</div>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column" }}>
+                <div className={styles.container}>
                     <Input
                         onChange={onChangeName}
                         value={name}

@@ -6,6 +6,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { postForgotPassword } from "../../api";
 import { selectHasUser } from "../../store/modules/user/user.selector";
 
+import styles from "./ForgotPassword.module.css";
+
 export const ForgotPassword = () => {
     const hasUser = useSelector(selectHasUser)
     const [email, setEmail] = useState("")
@@ -15,7 +17,8 @@ export const ForgotPassword = () => {
         setEmail(e.target.value)
     }
 
-    const onClick = useCallback(async () => {
+    const onClick = useCallback(async e => {
+        e.preventDefault()
         try {
             await postForgotPassword(email)
             navigate("/reset-password", { state: { isCheck: true } })
@@ -32,7 +35,8 @@ export const ForgotPassword = () => {
     return (
         <main>
             <h1>Восстановление пароля</h1>
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <form onSubmit={onClick}>
+            <div className={styles.container}>
                 <EmailInput
                     onChange={onChange}
                     value={email}
@@ -42,18 +46,18 @@ export const ForgotPassword = () => {
                     extraClass="mb-6"
                 />
                 <Button
-                    htmlType="button"
+                    htmlType="submit"
                     type="primary"
                     size="medium"
-                    onClick={onClick}
                 >
                     Восстановить
                 </Button>
-                <div>
-                    <span>Вспомнили пароль?</span>
+                <div className={"mt-4"}>
+                    <span className={"mr-4"}>Вспомнили пароль?</span>
                     <Link to='/login'>Войти</Link>
                 </div>
             </div>
+            </form>
         </main>
     )
 }

@@ -6,6 +6,8 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { postResetPassword } from "../../api";
 import { selectHasUser } from "../../store/modules/user/user.selector";
 
+import styles from "./ResetPassword.module.css";
+
 export const ResetPassword = () => {
     const hasUser = useSelector(selectHasUser)
     const [password, setPassword] = useState("")
@@ -21,7 +23,8 @@ export const ResetPassword = () => {
         setCode(e.target.value)
     },[])
 
-    const onClick = useCallback(async () => {
+    const onClick = useCallback(async e => {
+         e.preventDefault()
         try {
             await postResetPassword({ password, token:code })
             navigate("/login")
@@ -37,7 +40,8 @@ export const ResetPassword = () => {
     return (
         <main>
             <h1>Восстановление пароля</h1>
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <form onSubmit={onClick}>
+            <div className={styles.container}>
                 <PasswordInput
                     onChange={onChangePassword}
                     value={password}
@@ -53,18 +57,18 @@ export const ResetPassword = () => {
                     extraClass="mb-6"
                 />
                 <Button
-                    htmlType="button"
+                    htmlType="submit"
                     type="primary"
                     size="medium"
-                    onClick={onClick}
                 >
                     Сохранить
                 </Button>
-                <div>
+                <div className={"mt-4"}>
                     <span>Вспомнили пароль?</span>
                     <Link to='/login'>Войти</Link>
                 </div>
             </div>
+            </form>
         </main>
     )
 }

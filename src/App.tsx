@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route,Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { AppHeader } from "./components/AppHeader";
 import { ProtectedRouteElement } from "./components/ProtectedRouteElement";
@@ -29,7 +29,7 @@ function App() {
             <Route path="orders:ordersId" element={null} />
           </Route>
           <Route path="/ingredients">
-            <Route path=":ingredientId" element={<ProtectedRouteElement element={<Ingredient />} />} />
+            <Route path=":ingredientId" element={<Ingredient />} />
           </Route>
         </Routes>
     </div>

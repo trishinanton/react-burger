@@ -6,6 +6,8 @@ import { Link, Navigate } from "react-router-dom";
 import { fetchRegister } from "../../store/modules/user/user.reducer";
 import { selectHasUser } from "../../store/modules/user/user.selector";
 
+import styles from "./Register.module.css";
+
 export const Register = () => {
     const hasUser = useSelector(selectHasUser)
     const dispatch = useDispatch()
@@ -24,7 +26,8 @@ export const Register = () => {
         setPassword(e.target.value)
     }, [])
 
-    const onClick = useCallback(() => {
+    const onClick = useCallback(e => {
+        e.preventDefault()
         dispatch(fetchRegister({ name, email, password }))
     },[name,email, password])
 
@@ -35,7 +38,8 @@ export const Register = () => {
 return (
     <main>
         <h1>Регистрация</h1>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <form onSubmit={onClick}>
+        <div className={styles.container}>
             <Input
                 onChange={onChangeName}
                 value={name}
@@ -56,14 +60,15 @@ return (
                 name={"password"}
                 placeholder="Пароль"
             />
-            <Button htmlType="button" type="primary" size="medium" onClick={onClick}>
+            <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 ">
                 Зарегистрироваться
             </Button>
-            <div>
+            <div className={"mt-4"}>
                 <span>Уже зарегистрированы?</span>
                 <Link to='/login'>Войти</Link>
             </div>
         </div>
+        </form>
     </main>
 )
 }

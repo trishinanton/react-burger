@@ -7,7 +7,7 @@ import { useIngredientData } from "./useIngredientData";
 
 import styles from "../BurgerConstructor.module.css";
 
-export const Ingredient = ({ setHoverItemUUId, onDropHandler, item, type, isLocked, wrapperClassName }) => {
+export const Ingredient = ({ setHoverItemUUId = () => null, onDropHandler, item, type, isLocked, wrapperClassName }) => {
     const {
         name,
         price,

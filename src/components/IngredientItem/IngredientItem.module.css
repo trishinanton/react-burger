@@ -10,3 +10,8 @@
 .counter {
     position: absolute;
 }
+
+.link {
+    text-decoration: none;
+    color: white;
+}

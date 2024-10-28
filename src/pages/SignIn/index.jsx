@@ -1,10 +1,13 @@
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import cn from "classnames";
 import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useLocation } from "react-router-dom";
 
 import { fetchLogin } from "../../store/modules/user/user.reducer";
 import { selectHasUser } from "../../store/modules/user/user.selector";
+
+import styles from "./SignIn.module.css"
 
 export const SignIn = () => {
     const { state } = useLocation()
@@ -21,7 +24,8 @@ export const SignIn = () => {
 
     const dispatch = useDispatch()
 
-    const onClick = useCallback(() => {
+    const onClick = useCallback(e => {
+        e.preventDefault()
         dispatch(fetchLogin({ email, password }))
     },[email, password])
 
@@ -32,32 +36,39 @@ export const SignIn = () => {
     return (
         <main>
             <h1>Вход</h1>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-                <EmailInput
-                    onChange={onChangeEmail}
-                    value={email}
-                    name={"email"}
-                    placeholder="E-mail"
-                    isIcon={false}
-                    extraClass="mb-2"
-                />
-                <PasswordInput
-                    onChange={onChangePassword}
-                    value={password}
-                    name={"password"}
-                />
-                <Button htmlType="button" type="primary" size="medium" onClick={onClick}>
-                    Войти
-                </Button>
-                <div>
-                    <span>Вы - новый пользователь?</span>
-                    <Link to='/register'>Зарегистрироваться</Link>
+            <form onSubmit={onClick}>
+                <div className={styles.container}>
+                    <EmailInput
+                        onChange={onChangeEmail}
+                        value={email}
+                        name={"email"}
+                        placeholder="E-mail"
+                        isIcon={false}
+                        extraClass="mb-2"
+                    />
+                    <PasswordInput
+                        onChange={onChangePassword}
+                        value={password}
+                        name={"password"}
+                    />
+                    <Button
+                        htmlType="submit"
+                        type="primary"
+                        size="medium"
+                        extraClass={cn("mt-6 mb-20",styles.button)}
+                    >
+                        Войти
+                    </Button>
+                    <div>
+                        <span className={"mr-4"}>Вы - новый пользователь?</span>
+                        <Link to='/register' className={styles.link}>Зарегистрироваться</Link>
+                    </div>
+                    <div className={"mt-4"}>
+                        <span className={"mr-4"}>Забыли пароль?</span>
+                        <Link to='/forgot-password' className={styles.link}>Восстановить пароль</Link>
+                    </div>
                 </div>
-                <div>
-                    <span>Забыли пароль?</span>
-                    <Link to='/forgot-password'>Восстановить пароль</Link>
-                </div>
-            </div>
+            </form>
         </main>
     )
 }
