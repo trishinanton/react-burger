@@ -7,10 +7,7 @@ const initialState = {
   isError: false,
 }
 
-export const fetchIngredients = createAsyncThunk(
-  'ingredients/fetchIngredients',
-  () => getIngredients(),
-)
+export const fetchIngredients = createAsyncThunk('ingredients/fetchIngredients', getIngredients)
 
 const ingredientsSlice = createSlice({
   name: 'ingredients',

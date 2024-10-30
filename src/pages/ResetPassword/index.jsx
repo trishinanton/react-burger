@@ -3,41 +3,35 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 import { postResetPassword } from '../../api'
+import { useFormData } from '../../hooks/useFormData'
 import { selectHasUser } from '../../store/modules/user/user.selector'
 
 import styles from './ResetPassword.module.css'
 
 export const ResetPassword = () => {
   const hasUser = useSelector(selectHasUser)
-  const [password, setPassword] = useState('')
-  const [code, setCode] = useState('')
   const navigate = useNavigate()
   const { state } = useLocation()
 
-  const onChangePassword = e => {
-    setPassword(e.target.value)
-  }
-
-  const onChangeCode = useCallback(e => {
-    setCode(e.target.value)
-  }, [])
+  const { values, handleChange } = useFormData()
+  const { password, token } = values
 
   const onClick = useCallback(
     async e => {
       e.preventDefault()
       try {
-        await postResetPassword({ password, token: code })
+        await postResetPassword(values)
         navigate('/login')
       } catch (e) {
         return null
       }
     },
-    [password, code],
+    [values],
   )
 
   if (hasUser || !state?.isCheck) {
@@ -45,31 +39,29 @@ export const ResetPassword = () => {
   }
 
   return (
-    <main>
+    <main className={styles.container}>
       <h1>Восстановление пароля</h1>
-      <form onSubmit={onClick}>
-        <div className={styles.container}>
-          <PasswordInput
-            onChange={onChangePassword}
-            value={password}
-            name={'password'}
-            placeholder="Введите новый пароль"
-            extraClass="mb-6"
-          />
-          <Input
-            onChange={onChangeCode}
-            value={code}
-            name={'code'}
-            placeholder="Введите код из письма"
-            extraClass="mb-6"
-          />
-          <Button htmlType="submit" type="primary" size="medium">
-            Сохранить
-          </Button>
-          <div className={'mt-4'}>
-            <span>Вспомнили пароль?</span>
-            <Link to="/login">Войти</Link>
-          </div>
+      <form className={styles.container} onSubmit={onClick}>
+        <PasswordInput
+          onChange={handleChange}
+          value={password || ''}
+          name={'password'}
+          placeholder="Введите новый пароль"
+          extraClass="mb-6"
+        />
+        <Input
+          onChange={handleChange}
+          value={token || ''}
+          name={'token'}
+          placeholder="Введите код из письма"
+          extraClass="mb-6"
+        />
+        <Button htmlType="submit" type="primary" size="medium">
+          Сохранить
+        </Button>
+        <div className={'mt-4'}>
+          <span>Вспомнили пароль?</span>
+          <Link to="/login">Войти</Link>
         </div>
       </form>
     </main>

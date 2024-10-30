@@ -18,7 +18,7 @@ export const IngredientItem = ({ item, wrapperClassName }) => {
     <>
       <Link
         to={`/ingredients/${item._id}`}
-        state={{ ingredient: location }}
+        state={{ background: location }}
         className={cn('flex-col-fs-c', styles.link, wrapperClassName)}>
         <div ref={dragRef} className={cn(styles.container)}>
           <img src={image} alt={'logo'} />

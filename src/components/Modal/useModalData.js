@@ -4,7 +4,7 @@ export const useModalData = (isOpen, onClose) => {
   const callbackEscape = useCallback(
     event => {
       if (event.key === 'Escape') {
-        onClose()
+        onClose(event)
       }
     },
     [onClose],

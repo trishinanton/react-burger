@@ -14,23 +14,15 @@ const initialState = {
   hasUser: false,
 }
 
-export const fetchRegister = createAsyncThunk('user/fetchRegister', body =>
-  postRegister(body),
-)
+export const fetchRegister = createAsyncThunk('user/fetchRegister', postRegister)
 
-export const fetchLogin = createAsyncThunk('user/fetchLogin', body =>
-  postLogin(body),
-)
+export const fetchLogin = createAsyncThunk('user/fetchLogin', postLogin)
 
-export const fetchLogout = createAsyncThunk('user/fetchLogout', () =>
-  postLogout(),
-)
+export const fetchLogout = createAsyncThunk('user/fetchLogout', postLogout)
 
-export const fetchUser = createAsyncThunk('user/fetchUser', () => getUser())
+export const fetchUser = createAsyncThunk('user/fetchUser',getUser)
 
-export const fetchUpdateUser = createAsyncThunk('user/fetchUpdateUser', body =>
-  updateUser(body),
-)
+export const fetchUpdateUser = createAsyncThunk('user/fetchUpdateUser', updateUser)
 
 const userSlice = createSlice({
   name: 'user',
