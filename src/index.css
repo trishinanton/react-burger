@@ -2,7 +2,7 @@
   font-family: 'JetBrainsMono';
   font-style: normal;
   font-weight: 400;
-  src: url("./fonts/JetBrainsMono-VariableFont_wght.ttf") format("ttf");
+  src: url('./fonts/JetBrainsMono-VariableFont_wght.ttf') format('ttf');
 }
 
 body {
@@ -30,7 +30,7 @@ code {
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #8585AD;
+  color: #8585ad;
 }
 
 .flex-row-sb {
@@ -93,5 +93,5 @@ code {
   font-size: 36px;
   line-height: 40px;
   font-weight: 700;
-  color: #F2F2F3;
+  color: #f2f2f3;
 }

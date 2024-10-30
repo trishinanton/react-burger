@@ -15,7 +15,7 @@
     "plugin:@typescript-eslint/strict",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "prettier"
+    "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -72,8 +72,7 @@
     ],
     "import/newline-after-import": "error",
     "simple-import-sort/exports": "error",
-    "object-curly-spacing": ["error", "always"],
-    "quotes": ["error"]
+    "object-curly-spacing": ["error", "always"]
   },
   "ignorePatterns": [
     "src/**/*.test.ts"
