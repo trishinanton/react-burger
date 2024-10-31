@@ -1,1 +1,1 @@
-export const YandexApi = "https://norma.nomoreparties.space/api/";
+export const YandexApi = 'https://norma.nomoreparties.space/api/'

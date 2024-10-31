@@ -1,29 +1,56 @@
-import React from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { Route, Routes, useLocation } from 'react-router-dom'
 
-import { AppHeader } from "./components/AppHeader";
-import { BurgerConstructor } from "./components/BurgerConstructor";
-import { BurgerIngredients } from "./components/BurgerIngredients";
-import { useAppData } from "./hooks/useAppData";
+import { AppHeader } from './components/AppHeader'
+import { IngredientDetailsModal } from './components/IngredientDetailsModal'
+import { ProtectedRouteElement } from './components/ProtectedRouteElement'
+import { useAppData } from './hooks/useAppData'
+import { ForgotPassword } from './pages/ForgotPassword'
+import { Ingredient } from './pages/Ingredient'
+import { Main } from './pages/Main'
+import { Profile } from './pages/Profile'
+import { Register } from './pages/Register'
+import { ResetPassword } from './pages/ResetPassword'
+import { SignIn } from './pages/SignIn'
 
 function App() {
   useAppData()
 
+  const location = useLocation()
+  const background = location.state && location.state.background
+
   return (
     <div className="container">
       <AppHeader />
-      <main>
-        <h1 className="h1">Соберите бургер</h1>
-        <DndProvider backend={HTML5Backend}>
-          <div className="flex-row-sb-fs">
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </div>
-        </DndProvider>
-      </main>
+      <Routes location={background || location}>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route
+          path="/profile"
+          element={<ProtectedRouteElement element={<Profile />} />}>
+          <Route
+            path="orders"
+            element={<ProtectedRouteElement element={<Profile />} />}
+          />
+          <Route path="orders:ordersId" element={null} />
+        </Route>
+        <Route path="/ingredients">
+          <Route path=":ingredientId" element={<Ingredient />} />
+        </Route>
+      </Routes>
+      <Routes>
+        {background && (
+          <Route
+            path="/ingredients/:ingredientId"
+            element={<IngredientDetailsModal />}
+          />
+        )}
+        <Route path="*" element={null} />
+      </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

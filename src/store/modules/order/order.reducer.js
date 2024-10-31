@@ -1,24 +1,23 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {postOrder} from "../../../api";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { postOrder } from '../../../api'
 
 const initialState = {
-    numberOrder: null
+  numberOrder: null,
 }
 
-export const createOrder = createAsyncThunk(
-    'order/createOrder',
-    (ids) => postOrder(ids)
+export const createOrder = createAsyncThunk('order/createOrder', ids =>
+  postOrder(ids),
 )
 
 const orderSlice = createSlice({
-    name:'order',
-    initialState,
-    reducers: {},
-    extraReducers: ({ addCase }) => {
-        addCase(createOrder.fulfilled, (state, {payload}) => {
-            state.numberOrder = payload.number
-        })
-    }
+  name: 'order',
+  initialState,
+  reducers: {},
+  extraReducers: ({ addCase }) => {
+    addCase(createOrder.fulfilled, (state, { payload }) => {
+      state.numberOrder = payload.number
+    })
+  },
 })
 
-export const {reducer} = orderSlice
+export const { reducer } = orderSlice
