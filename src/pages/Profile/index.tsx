@@ -19,6 +19,11 @@ import {
 
 import styles from './Profile.module.css'
 
+interface IUpdateUser {
+  email: string
+  name: string
+}
+
 export const Profile: FC = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -53,7 +58,7 @@ export const Profile: FC = () => {
     //todo - типизировать стор
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    dispatch(fetchUpdateUser({ email, name }))
+    dispatch(fetchUpdateUser<IUpdateUser>({ email, name }))
   }, [email, name])
 
   const onClickCancel = useCallback(() => {

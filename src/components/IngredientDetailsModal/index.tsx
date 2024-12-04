@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { MouseEvent, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -15,10 +15,13 @@ export const IngredientDetailsModal = () => {
     (item: IIngredientItem) => item._id === ingredientId,
   )
 
-  const onClose = useCallback((e: Event) => {
-    e.stopPropagation()
-    navigate(-1)
-  }, [])
+  const onClose = useCallback(
+    (e: MouseEvent<HTMLDivElement> | KeyboardEvent) => {
+      e.stopPropagation()
+      navigate(-1)
+    },
+    [],
+  )
 
   return (
     <Modal isOpen onClose={onClose}>

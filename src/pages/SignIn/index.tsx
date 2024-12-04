@@ -14,6 +14,11 @@ import { selectHasUser } from '../../store/modules/user/user.selector'
 
 import styles from './SignIn.module.css'
 
+interface ILogin {
+  email: string
+  password: string
+}
+
 export const SignIn: FC = () => {
   const { state } = useLocation()
   const hasUser = useSelector(selectHasUser)
@@ -28,7 +33,7 @@ export const SignIn: FC = () => {
       //todo - типизировать стор
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      dispatch(fetchLogin(values))
+      dispatch(fetchLogin<ILogin>(values))
     },
     [values],
   )

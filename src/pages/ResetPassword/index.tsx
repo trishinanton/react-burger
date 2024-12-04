@@ -13,6 +13,10 @@ import { selectHasUser } from '../../store/modules/user/user.selector'
 
 import styles from './ResetPassword.module.css'
 
+interface IResetPassword {
+  password: string
+  token: string
+}
 export const ResetPassword = () => {
   const hasUser = useSelector(selectHasUser)
   const navigate = useNavigate()
@@ -25,7 +29,7 @@ export const ResetPassword = () => {
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       try {
-        await postResetPassword(values as unknown as Record<string, unknown>)
+        await postResetPassword<IResetPassword>(values)
         navigate('/login')
       } catch (e) {
         return null

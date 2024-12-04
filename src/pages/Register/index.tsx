@@ -14,6 +14,12 @@ import { selectHasUser } from '../../store/modules/user/user.selector'
 
 import styles from './Register.module.css'
 
+interface IRegister {
+  name: string
+  email: string
+  password: string
+}
+
 export const Register = () => {
   const hasUser = useSelector(selectHasUser)
   const dispatch = useDispatch()
@@ -28,7 +34,7 @@ export const Register = () => {
       //todo - типизировать стор
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      dispatch(fetchRegister(values))
+      dispatch(fetchRegister<IRegister>(values))
     },
     [values],
   )

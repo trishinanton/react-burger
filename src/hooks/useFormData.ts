@@ -6,8 +6,8 @@ interface IValues {
   password: string
   token: string
 }
-export const useFormData = (inputValues = {}) => {
-  const [values, setValues] = useState<IValues>(inputValues as IValues)
+export const useFormData = () => {
+  const [values, setValues] = useState<IValues>({} as IValues)
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target

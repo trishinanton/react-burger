@@ -1,10 +1,10 @@
-import { FC } from 'react'
+import { FC, MouseEvent } from 'react'
 
 import { Modal } from '../Modal'
 import { OrderDetailsContent } from '../OrderDetailsContent'
 
 interface Props {
-  onClose: (event: Event) => void
+  onClose: (event: MouseEvent<HTMLDivElement> | KeyboardEvent) => void
 }
 
 export const OrderDetailsModal: FC<Props> = ({ onClose }) => {

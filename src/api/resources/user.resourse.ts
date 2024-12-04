@@ -6,8 +6,8 @@ import { getCookie, setCookie } from '../../utils/cookies'
 import { YandexApi } from '../config'
 import { resource } from '../resource'
 
-export const postRegister = (body: Record<string, unknown>) =>
-  resource({
+export const postRegister = <T>(body: T) =>
+  resource<T>({
     url: `${YandexApi}auth/register`,
     method: 'POST',
     body,
@@ -18,8 +18,8 @@ export const postRegister = (body: Record<string, unknown>) =>
     return res.user
   })
 
-export const postLogin = (body: Record<string, unknown>) =>
-  resource({
+export const postLogin = <T>(body: T) =>
+  resource<T>({
     url: `${YandexApi}auth/login`,
     method: 'POST',
     body,
@@ -73,8 +73,8 @@ export const getUser = () =>
       throw err
     })
 
-export const updateUser = (body: Record<string, unknown>) =>
-  resource({
+export const updateUser = <T>(body: T) =>
+  resource<T>({
     url: `${YandexApi}auth/user`,
     method: 'PATCH',
     headers: {
@@ -99,8 +99,8 @@ export const postForgotPassword = (email: string) =>
     body: { email },
   }).then(res => res.message)
 
-export const postResetPassword = (body: Record<string, unknown>) =>
-  resource({
+export const postResetPassword = <T>(body: T) =>
+  resource<T>({
     url: `${YandexApi}password-reset/reset`,
     method: 'POST',
     body,

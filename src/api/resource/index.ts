@@ -1,20 +1,20 @@
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
 
-interface ResourceOptions {
+interface ResourceOptions<T> {
   url: string
   method: HttpMethod
-  body?: Record<string, unknown>
+  body?: T
   withCredentials?: boolean
   headers?: Record<string, string>
 }
 
-export const resource = ({
+export const resource = <T>({
   url,
   method,
   body,
   withCredentials,
   headers,
-}: ResourceOptions) => {
+}: ResourceOptions<T>) => {
   return fetch(url, {
     method,
     body: body ? JSON.stringify(body) : undefined,

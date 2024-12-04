@@ -1,6 +1,6 @@
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import cn from 'classnames'
-import { FC, PropsWithChildren } from 'react'
+import { FC, MouseEvent, PropsWithChildren } from 'react'
 import { createPortal } from 'react-dom'
 
 import { ModalOverlay } from '../ModalOverlay'
@@ -10,7 +10,7 @@ import styles from './Modal.module.css'
 
 interface Props {
   isOpen: boolean
-  onClose: (e: Event) => void
+  onClose: (e: MouseEvent<HTMLDivElement> | KeyboardEvent) => void
 }
 
 const modalRoot = document.getElementById('react-modals')

@@ -1,8 +1,8 @@
-import { useCallback, useEffect } from 'react'
+import { MouseEvent, useCallback, useEffect } from 'react'
 
 export const useModalData = (
   isOpen: boolean,
-  onClose: (event: KeyboardEvent) => void,
+  onClose: (event: MouseEvent<HTMLDivElement> | KeyboardEvent) => void,
 ) => {
   const callbackEscape = useCallback(
     (event: KeyboardEvent) => {
