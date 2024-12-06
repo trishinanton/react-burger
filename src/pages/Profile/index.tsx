@@ -8,6 +8,7 @@ import { ChangeEvent, FC, useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 
+import { AppDispatch } from '../../index'
 import {
   fetchLogout,
   fetchUpdateUser,
@@ -19,20 +20,12 @@ import {
 
 import styles from './Profile.module.css'
 
-interface IUpdateUser {
-  email: string
-  name: string
-}
-
 export const Profile: FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
 
   const onClickLogout = useCallback(async () => {
     try {
-      //todo - типизировать стор
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       await dispatch(fetchLogout())
       navigate('/login')
     } catch (e) {
@@ -55,10 +48,7 @@ export const Profile: FC = () => {
   }, [])
 
   const onClickChange = useCallback(() => {
-    //todo - типизировать стор
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    dispatch(fetchUpdateUser<IUpdateUser>({ email, name }))
+    dispatch(fetchUpdateUser({ email, name }))
   }, [email, name])
 
   const onClickCancel = useCallback(() => {

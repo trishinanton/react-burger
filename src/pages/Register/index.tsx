@@ -9,20 +9,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
 
 import { useFormData } from '../../hooks/useFormData'
+import { AppDispatch } from '../../index'
 import { fetchRegister } from '../../store/modules/user/user.reducer'
 import { selectHasUser } from '../../store/modules/user/user.selector'
 
 import styles from './Register.module.css'
 
-interface IRegister {
-  name: string
-  email: string
-  password: string
-}
-
 export const Register = () => {
   const hasUser = useSelector(selectHasUser)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   const { values, handleChange } = useFormData()
   const { name, email, password } = values
@@ -30,11 +25,7 @@ export const Register = () => {
   const onClick = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
-
-      //todo - типизировать стор
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      dispatch(fetchRegister<IRegister>(values))
+      dispatch(fetchRegister(values))
     },
     [values],
   )

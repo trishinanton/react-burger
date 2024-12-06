@@ -7,7 +7,7 @@ import { NutritionalValueItem } from './NutritionalValueItem'
 import styles from './IngredientDetailsContent.module.css'
 
 interface Props {
-  ingredientItem: IIngredientItem
+  ingredientItem?: IIngredientItem
 }
 export const IngredientDetailsContent: FC<Props> = ({
   ingredientItem = {},
