@@ -1,13 +1,20 @@
-import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
+import {createEntityAdapter, createSlice, type EntityAdapter} from '@reduxjs/toolkit'
+import {IIngredientItem} from "../../../utils/types";
 
-const initialState = {
+interface IInitialState {
+  entities: Record<string, IIngredientItem>;
+  ids: Array<string>;
+  countIngredients: Record<string, string[]>
+  currentBun: IIngredientItem | null
+}
+const initialState: IInitialState = {
   entities: {},
   ids: [],
   countIngredients: {},
   currentBun: null,
 }
 
-export const constructorAdapter = createEntityAdapter({
+export const constructorAdapter:EntityAdapter<IIngredientItem, string> = createEntityAdapter({
   selectId: ingredient => ingredient.uuid,
 })
 

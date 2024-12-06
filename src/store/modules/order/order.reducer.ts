@@ -5,8 +5,10 @@ const initialState = {
   numberOrder: null,
 }
 
-export const createOrder = createAsyncThunk('order/createOrder', ids =>
-  postOrder(ids),
+export const createOrder = createAsyncThunk<
+  {number: number},
+  string[]
+  >('order/createOrder', ids => postOrder(ids),
 )
 
 const orderSlice = createSlice({
@@ -15,6 +17,7 @@ const orderSlice = createSlice({
   reducers: {},
   extraReducers: ({ addCase }) => {
     addCase(createOrder.fulfilled, (state, { payload }) => {
+      // @ts-ignore
       state.numberOrder = payload.number
     })
   },

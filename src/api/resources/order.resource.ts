@@ -3,7 +3,7 @@ import { getCookie } from '../../utils/cookies'
 import { YandexApi } from '../config'
 import { resource } from '../resource'
 
-export const postOrder = (ids: string[]) =>
+export const postOrder = (ids: string[]): Promise<{ number: number }> =>
   resource({
     url: `${YandexApi}orders`,
     method: 'POST',

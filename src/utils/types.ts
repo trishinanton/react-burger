@@ -1,15 +1,16 @@
 export interface IIngredientItem {
+  _id: string
   name: string
-  price: number
-  image: string
-  calories: number
+  type: string
   proteins: number
   fat: number
   carbohydrates: number
-  type?: string
-  uuid: string
-  _id: string
+  calories: number
+  price: number
+  image: string
+  image_mobile: string
   image_large: string
+  uuid: string
 }
 
 export const IngredientItemDefault = {

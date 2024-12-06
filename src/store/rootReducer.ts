@@ -12,3 +12,5 @@ const reducers = {
 }
 
 export const createRootReducer = () => combineReducers(reducers)
+
+export type AppReducer = typeof reducers;
