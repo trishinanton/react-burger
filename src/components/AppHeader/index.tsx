@@ -25,7 +25,7 @@ export const AppHeader: FC = () => {
           <span className={'ml-2'}>Конструктор</span>
         </NavLink>
         <NavLink
-          to={'/profile/orders'}
+          to={'/feed'}
           className={({ isActive }) =>
             isActive
               ? cn('flex-row-fs', styles.item, styles.active_link)

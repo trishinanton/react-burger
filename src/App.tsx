@@ -4,6 +4,7 @@ import { AppHeader } from './components/AppHeader'
 import { IngredientDetailsModal } from './components/IngredientDetailsModal'
 import { ProtectedRouteElement } from './components/ProtectedRouteElement'
 import { useAppData } from './hooks/useAppData'
+import { Feed } from './pages/Feed'
 import { ForgotPassword } from './pages/ForgotPassword'
 import { Ingredient } from './pages/Ingredient'
 import { Main } from './pages/Main'
@@ -23,6 +24,7 @@ function App() {
       <AppHeader />
       <Routes location={background || location}>
         <Route path="/" element={<Main />} />
+        <Route path="/feed" element={<Feed />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
