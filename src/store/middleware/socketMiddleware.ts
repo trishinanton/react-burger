@@ -16,7 +16,6 @@ export const socketMiddleware = ():Middleware => {
       const { type, payload } = action;
 
       if (type === 'WS_CONNECTION_START') {
-        console.info('test', payload)
         // объект класса WebSocket
         socket = new WebSocket(payload as string);
       }
@@ -38,8 +37,8 @@ export const socketMiddleware = ():Middleware => {
           dispatch(wsGetMessage(JSON.parse(data)));
         };
         // функция, которая вызывается при закрытии соединения
-        socket.onclose = event => {
-          dispatch(wsConnectionClosed(event));
+        socket.onclose = () => {
+          dispatch(wsConnectionClosed());
         };
 
         if (type === 'WS_SEND_MESSAGE') {

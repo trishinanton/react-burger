@@ -49,7 +49,11 @@ function App() {
         <Route path="/profile/orders/*">
           <Route
             path=":feedId"
-            element={<ProtectedRouteElement element={<FeedById />} />}
+            element={
+              <ProtectedRouteElement
+                element={<FeedById isProfileOrdersPage />}
+              />
+            }
           />
         </Route>
         <Route path="/ingredients">
@@ -78,7 +82,11 @@ function App() {
         {backgroundProfileOrder && (
           <Route
             path="/profile/orders/:feedId"
-            element={<ProtectedRouteElement element={<FeedDetailsModal />} />}
+            element={
+              <ProtectedRouteElement
+                element={<FeedDetailsModal isProfileOrdersPage />}
+              />
+            }
           />
         )}
         <Route path="*" element={null} />

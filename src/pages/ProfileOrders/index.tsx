@@ -5,12 +5,14 @@ import { NavBar } from '../../components/NavBar'
 import { OrdersList } from '../../components/OrdersList'
 import { COOKIE_ACCESS_TOKEN } from '../../constants/cookies'
 import { AppDispatch } from '../../index'
-import { wsConnectionStart } from '../../store/modules/ws/ws.reducer'
+import {
+  wsConnectionClosed,
+  wsConnectionStart,
+} from '../../store/modules/ws/ws.reducer'
 import { getCookie } from '../../utils/cookies'
+import { wsUrl } from '../../utils/wsUrls'
 
 import styles from './ProfileOrders.module.css'
-
-const wsUrl = 'wss://norma.nomoreparties.space/orders'
 
 export const ProfileOrders = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -22,6 +24,10 @@ export const ProfileOrders = () => {
           `?token=${(getCookie(COOKIE_ACCESS_TOKEN) || '').slice('Bearer%'.length)}`,
       ),
     )
+
+    return () => {
+      dispatch(wsConnectionClosed())
+    }
   }, [])
 
   return (

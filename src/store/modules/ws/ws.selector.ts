@@ -17,3 +17,8 @@ export const selectOrders = createSelector(
   [selectWS],
   store => store.orders
 );
+
+export const selectWsConnected = createSelector(
+  [selectWS],
+  store => store.wsConnected
+);

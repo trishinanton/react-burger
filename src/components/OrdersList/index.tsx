@@ -10,7 +10,7 @@ import styles from './OrdersList.module.css'
 export const OrdersList: FC<{ isProfileOrdersPage?: boolean }> = ({
   isProfileOrdersPage,
 }) => {
-  const orders = useSelector(selectOrders)
+  const orders = useSelector(selectOrders) || []
 
   return (
     <div className={cn('flex-col-fs mr-15', styles.container)}>
