@@ -29,7 +29,7 @@ export const IngredientItem: FC<Props> = ({ item, wrapperClassName }) => {
           <Price
             classNameCurrency={styles.icon}
             classNameCount="text text_type_digits-default"
-            price={price}
+            price={String(price)}
           />
           <span className="text text_type_main-default mt-2">{name}</span>
           {count ? (

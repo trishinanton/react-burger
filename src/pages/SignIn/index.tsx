@@ -9,15 +9,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate, useLocation } from 'react-router-dom'
 
 import { useFormData } from '../../hooks/useFormData'
+import { AppDispatch } from '../../index'
 import { fetchLogin } from '../../store/modules/user/user.reducer'
 import { selectHasUser } from '../../store/modules/user/user.selector'
 
 import styles from './SignIn.module.css'
-
-interface ILogin {
-  email: string
-  password: string
-}
 
 export const SignIn: FC = () => {
   const { state } = useLocation()
@@ -25,15 +21,12 @@ export const SignIn: FC = () => {
   const { values, handleChange } = useFormData()
   const { email, password } = values
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   const onClick = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
-      //todo - типизировать стор
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      dispatch(fetchLogin<ILogin>(values))
+      dispatch(fetchLogin(values))
     },
     [values],
   )

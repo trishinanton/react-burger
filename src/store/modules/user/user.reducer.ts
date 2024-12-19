@@ -7,7 +7,14 @@ import {
   updateUser,
 } from '../../../api'
 
-const initialState = {
+interface IInitialState {
+  email: string
+  name: string
+  password: string
+  hasUser: boolean
+}
+
+const initialState: IInitialState = {
   email: '',
   name: '',
   password: '',
