@@ -29,7 +29,7 @@ const initialState: IWSState = {
   orders: []
 };
 
-export const wsConnectionStart = createAction(WS_CONNECTION_START)
+export const wsConnectionStart = createAction<string>(WS_CONNECTION_START)
 export const wsConnectionSuccess = createAction(WS_CONNECTION_SUCCESS)
 export const wsConnectionError = createAction<Event>(WS_CONNECTION_ERROR)
 export const wsConnectionClosed = createAction<Event>(WS_CONNECTION_CLOSED)
@@ -48,6 +48,7 @@ export const reducer = createReducer(initialState, ({ addCase }) => {
   addCase(wsConnectionClosed, state => {
     state.wsConnected = false
     state.error = undefined
+    state.orders = []
   });
   addCase(wsGetMessage, (state, {payload}) => {
     const {orders, total, totalToday} = payload

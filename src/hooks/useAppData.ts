@@ -6,12 +6,14 @@ import { fetchIngredients } from '../store/modules/ingredients/ingredients.reduc
 import { fetchUser } from '../store/modules/user/user.reducer'
 import { wsConnectionStart } from '../store/modules/ws/ws.reducer'
 
+const wsUrl = 'wss://norma.nomoreparties.space/orders/all'
+
 export const useAppData = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
     dispatch(fetchUser())
     dispatch(fetchIngredients())
-    dispatch(wsConnectionStart())
+    dispatch(wsConnectionStart(wsUrl))
   }, [])
 }

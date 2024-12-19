@@ -7,13 +7,21 @@ import { OrderCard } from './OrderCard'
 
 import styles from './OrdersList.module.css'
 
-export const OrdersList: FC = () => {
+export const OrdersList: FC<{ isProfileOrdersPage?: boolean }> = ({
+  isProfileOrdersPage,
+}) => {
   const orders = useSelector(selectOrders)
 
   return (
     <div className={cn('flex-col-fs mr-15', styles.container)}>
       {orders.length > 0
-        ? orders.map(item => <OrderCard key={item._id} orderItem={item} />)
+        ? orders.map(item => (
+            <OrderCard
+              key={item._id}
+              orderItem={item}
+              isProfileOrdersPage={isProfileOrdersPage}
+            />
+          ))
         : null}
     </div>
   )

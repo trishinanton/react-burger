@@ -11,6 +11,7 @@ import { ForgotPassword } from './pages/ForgotPassword'
 import { Ingredient } from './pages/Ingredient'
 import { Main } from './pages/Main'
 import { Profile } from './pages/Profile'
+import { ProfileOrders } from './pages/ProfileOrders'
 import { Register } from './pages/Register'
 import { ResetPassword } from './pages/ResetPassword'
 import { SignIn } from './pages/SignIn'
@@ -21,11 +22,16 @@ function App() {
   const location = useLocation()
   const background = location.state && location.state.background
   const backgroundFeed = location.state && location.state.backgroundFeed
+  const backgroundProfileOrder =
+    location.state && location.state.backgroundProfileOrder
 
   return (
     <div className="container">
       <AppHeader />
-      <Routes location={background || backgroundFeed || location}>
+      <Routes
+        location={
+          background || backgroundFeed || backgroundProfileOrder || location
+        }>
         <Route path="/" element={<Main />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/login" element={<SignIn />} />
@@ -34,12 +40,17 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route
           path="/profile"
-          element={<ProtectedRouteElement element={<Profile />} />}>
+          element={<ProtectedRouteElement element={<Profile />} />}
+        />
+        <Route
+          path="/profile/orders"
+          element={<ProtectedRouteElement element={<ProfileOrders />} />}
+        />
+        <Route path="/profile/orders/*">
           <Route
-            path="orders"
-            element={<ProtectedRouteElement element={<Profile />} />}
+            path=":feedId"
+            element={<ProtectedRouteElement element={<FeedById />} />}
           />
-          <Route path="orders:ordersId" element={null} />
         </Route>
         <Route path="/ingredients">
           <Route path=":ingredientId" element={<Ingredient />} />
@@ -60,6 +71,15 @@ function App() {
       <Routes>
         {backgroundFeed && (
           <Route path="/feed/:feedId" element={<FeedDetailsModal />} />
+        )}
+        <Route path="*" element={null} />
+      </Routes>
+      <Routes>
+        {backgroundProfileOrder && (
+          <Route
+            path="/profile/orders/:feedId"
+            element={<ProtectedRouteElement element={<FeedDetailsModal />} />}
+          />
         )}
         <Route path="*" element={null} />
       </Routes>

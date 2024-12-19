@@ -7,7 +7,7 @@ import {
   wsGetMessage
 } from "../modules/ws/ws.reducer";
 
-export const socketMiddleware = (wsUrl: string):Middleware => {
+export const socketMiddleware = ():Middleware => {
   return ((store ) => {
     let socket: WebSocket | null = null;
 
@@ -16,8 +16,9 @@ export const socketMiddleware = (wsUrl: string):Middleware => {
       const { type, payload } = action;
 
       if (type === 'WS_CONNECTION_START') {
+        console.info('test', payload)
         // объект класса WebSocket
-        socket = new WebSocket(wsUrl);
+        socket = new WebSocket(payload as string);
       }
       if (socket) {
 

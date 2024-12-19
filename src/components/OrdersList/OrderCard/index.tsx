@@ -11,16 +11,20 @@ import styles from './OrderCard.module.css'
 
 interface Props {
   orderItem: IOrder
+  isProfileOrdersPage?: boolean
 }
-export const OrderCard: FC<Props> = ({ orderItem }) => {
-  const { number, name, createdAt, _id } = orderItem
+export const OrderCard: FC<Props> = ({ orderItem, isProfileOrdersPage }) => {
+  const { number, name, createdAt, _id, status } = orderItem
   const location = useLocation()
   const { ingredientsEntity, resultPrice } = useFeedOrderData(orderItem)
 
   return (
     <Link
-      to={`/feed/${_id}`}
-      state={{ backgroundFeed: location }}
+      to={isProfileOrdersPage ? `/profile/orders/${_id}` : `/feed/${_id}`}
+      state={{
+        [isProfileOrdersPage ? 'backgroundProfileOrder' : 'backgroundFeed']:
+          location,
+      }}
       className={styles.link}>
       <div className={cn('p-6 mb-4', styles.wrapper)}>
         <div className={cn('flex-row-sb', 'mb-6')}>
@@ -31,6 +35,14 @@ export const OrderCard: FC<Props> = ({ orderItem }) => {
           />
         </div>
         <div className="text text_type_main-medium mb-6">{name}</div>
+        {isProfileOrdersPage ? (
+          <div
+            className={cn('text text_type_main-default mb-6', {
+              [styles.status_done]: status === 'done',
+            })}>
+            {status === 'done' ? 'Выполнен' : 'Готовится'}
+          </div>
+        ) : null}
         <div className={'flex-row-sb'}>
           <div className={'flex-row'}>
             {Object.values(ingredientsEntity)
