@@ -17,6 +17,12 @@ export const Stats: FC = () => {
   const doneOrders = orders.filter(({ status }) => status === 'done')
   const pendingOrders = orders.filter(({ status }) => status === 'pending')
 
+  const doneOrdersFirstCol = doneOrders.slice(0, 10)
+  const doneOrdersSecondCol = doneOrders.slice(10, 20)
+
+  const pendingOrdersFirstCol = pendingOrders.slice(0, 10)
+  const pendingOrdersSecondCol = pendingOrders.slice(10, 20)
+
   return (
     <div className={cn('flex-col-fs', styles.container)}>
       <div className={'flex-row-sb-fs mb-15'}>
@@ -25,30 +31,57 @@ export const Stats: FC = () => {
             Готовы:
           </div>
           <div className={styles.orders_container}>
-            {doneOrders.length > 0
-              ? doneOrders.map(({ _id, number }) => (
-                  <div
-                    key={_id}
-                    className={cn(
-                      'text text_type_digits-default',
-                      styles.done_color,
-                    )}>
-                    {number}
-                  </div>
-                ))
-              : null}
+            <div className={cn(styles.orders_col, 'mr-10')}>
+              {doneOrdersFirstCol.length > 0
+                ? doneOrdersFirstCol.map(({ _id, number }) => (
+                    <div
+                      key={_id}
+                      className={cn(
+                        'text text_type_digits-default',
+                        styles.done_color,
+                      )}>
+                      {number}
+                    </div>
+                  ))
+                : null}
+            </div>
+            <div className={styles.orders_col}>
+              {doneOrdersSecondCol.length > 0
+                ? doneOrdersSecondCol.map(({ _id, number }) => (
+                    <div
+                      key={_id}
+                      className={cn(
+                        'text text_type_digits-default',
+                        styles.done_color,
+                      )}>
+                      {number}
+                    </div>
+                  ))
+                : null}
+            </div>
           </div>
         </div>
         <div>
           <div className={'text text_type_main-medium mb-6'}>В работе:</div>
           <div className={styles.orders_container}>
-            {pendingOrders.length > 0
-              ? pendingOrders.map(({ _id, number }) => (
-                  <div key={_id} className={'text text_type_digits-default'}>
-                    {number}
-                  </div>
-                ))
-              : null}
+            <div className={cn(styles.orders_col, 'mr-10')}>
+              {pendingOrdersFirstCol.length > 0
+                ? pendingOrdersFirstCol.map(({ _id, number }) => (
+                    <div key={_id} className={'text text_type_digits-default'}>
+                      {number}
+                    </div>
+                  ))
+                : null}
+            </div>
+            <div className={styles.orders_col}>
+              {pendingOrdersSecondCol.length > 0
+                ? pendingOrdersSecondCol.map(({ _id, number }) => (
+                    <div key={_id} className={'text text_type_digits-default'}>
+                      {number}
+                    </div>
+                  ))
+                : null}
+            </div>
           </div>
         </div>
       </div>
