@@ -1,0 +1,15 @@
+.wrapper_left {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+}
+
+.active_link {
+    color: #8585ad;
+}

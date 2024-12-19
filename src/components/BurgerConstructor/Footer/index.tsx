@@ -17,7 +17,7 @@ export const Footer: FC = () => {
       <Price
         classNameCurrency={styles.icon}
         classNameCount="text text_type_digits-medium"
-        price={commonPrice}
+        price={String(commonPrice)}
       />
       <Button
         htmlType="button"

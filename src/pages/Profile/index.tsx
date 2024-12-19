@@ -3,15 +3,12 @@ import {
   EmailInput,
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import cn from 'classnames'
 import { ChangeEvent, FC, useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, useNavigate } from 'react-router-dom'
 
-import {
-  fetchLogout,
-  fetchUpdateUser,
-} from '../../store/modules/user/user.reducer'
+import { NavBar } from '../../components/NavBar'
+import { AppDispatch } from '../../index'
+import { fetchUpdateUser } from '../../store/modules/user/user.reducer'
 import {
   selectEmailUser,
   selectNameUser,
@@ -19,26 +16,8 @@ import {
 
 import styles from './Profile.module.css'
 
-interface IUpdateUser {
-  email: string
-  name: string
-}
-
 export const Profile: FC = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
-  const onClickLogout = useCallback(async () => {
-    try {
-      //todo - типизировать стор
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      await dispatch(fetchLogout())
-      navigate('/login')
-    } catch (e) {
-      return null
-    }
-  }, [navigate])
+  const dispatch = useDispatch<AppDispatch>()
 
   const curName = useSelector(selectNameUser)
   const curEmail = useSelector(selectEmailUser)
@@ -55,10 +34,7 @@ export const Profile: FC = () => {
   }, [])
 
   const onClickChange = useCallback(() => {
-    //todo - типизировать стор
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    dispatch(fetchUpdateUser<IUpdateUser>({ email, name }))
+    dispatch(fetchUpdateUser({ email, name }))
   }, [email, name])
 
   const onClickCancel = useCallback(() => {
@@ -71,44 +47,7 @@ export const Profile: FC = () => {
   return (
     <main>
       <div className={styles.wrapper}>
-        <div className={cn('mr-20', styles.wrapper_left)}>
-          <NavLink
-            end
-            to="/profile"
-            className={({ isActive }) =>
-              isActive
-                ? cn(
-                    'text text_type_main-large mt-10',
-                    styles.link,
-                    styles.active_link,
-                  )
-                : cn('text text_type_main-large mt-10', styles.link)
-            }>
-            Профиль
-          </NavLink>
-          <NavLink
-            to="/profile/orders"
-            className={({ isActive }) =>
-              isActive
-                ? cn(
-                    'text text_type_main-large mt-10',
-                    styles.link,
-                    styles.active_link,
-                  )
-                : cn('text text_type_main-large mt-10', styles.link)
-            }>
-            История заказов
-          </NavLink>
-          <span
-            className={cn('text text_type_main-large mt-10', styles.link)}
-            onClick={onClickLogout}>
-            Выход
-          </span>
-          <div className={'text text_type_main-small mt-20'}>
-            В этом разделе вы можете <br />
-            изменить свои персональные данные
-          </div>
-        </div>
+        <NavBar />
         <div className={styles.container}>
           <Input
             onChange={onChangeName}
