@@ -7,7 +7,7 @@ import styles from './Price.module.css'
 interface Props {
   classNameCount: string
   classNameCurrency: string
-  price: number
+  price: string
 }
 export const Price: FC<Props> = ({
   classNameCount,

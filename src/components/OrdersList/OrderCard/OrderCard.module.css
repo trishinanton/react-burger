@@ -39,3 +39,8 @@
 .icon_text {
     z-index: 1;
 }
+
+.link {
+    text-decoration: none;
+    color: white;
+}

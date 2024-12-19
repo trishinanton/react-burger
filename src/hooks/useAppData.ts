@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../index'
 import { fetchIngredients } from '../store/modules/ingredients/ingredients.reducer'
 import { fetchUser } from '../store/modules/user/user.reducer'
+import { wsConnectionStart } from '../store/modules/ws/ws.reducer'
 
 export const useAppData = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -11,5 +12,6 @@ export const useAppData = () => {
   useEffect(() => {
     dispatch(fetchUser())
     dispatch(fetchIngredients())
+    dispatch(wsConnectionStart())
   }, [])
 }

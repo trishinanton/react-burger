@@ -1,4 +1,5 @@
 import {createAction, createReducer} from "@reduxjs/toolkit";
+import {IOrder} from "../../../utils/types";
 
 const WS_CONNECTION_START: 'WS_CONNECTION_START' = 'WS_CONNECTION_START';
 const WS_CONNECTION_SUCCESS: 'WS_CONNECTION_SUCCESS' = 'WS_CONNECTION_SUCCESS';
@@ -6,16 +7,6 @@ const WS_CONNECTION_ERROR: 'WS_CONNECTION_ERROR' = 'WS_CONNECTION_ERROR';
 const WS_CONNECTION_CLOSED: 'WS_CONNECTION_CLOSED' = 'WS_CONNECTION_CLOSED';
 const WS_GET_MESSAGE: 'WS_GET_MESSAGE' = 'WS_GET_MESSAGE';
 const WS_SEND_MESSAGE: 'WS_SEND_MESSAGE' = 'WS_SEND_MESSAGE';
-
-interface IOrder {
-  ingredients: string[]
-  _id: string
-  name: string
-  status: string
-  number: number
-  createdAt: string
-  updatedAt: string
-}
 
 interface IWSState {
   wsConnected: boolean;
@@ -39,7 +30,7 @@ const initialState: IWSState = {
 };
 
 export const wsConnectionStart = createAction(WS_CONNECTION_START)
-export const wsConnectionSuccess = createAction<Event>(WS_CONNECTION_SUCCESS)
+export const wsConnectionSuccess = createAction(WS_CONNECTION_SUCCESS)
 export const wsConnectionError = createAction<Event>(WS_CONNECTION_ERROR)
 export const wsConnectionClosed = createAction<Event>(WS_CONNECTION_CLOSED)
 export const wsGetMessage = createAction<IDataMessage>(WS_GET_MESSAGE)

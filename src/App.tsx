@@ -1,10 +1,12 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
 
 import { AppHeader } from './components/AppHeader'
+import { FeedDetailsModal } from './components/FeedDetailsModal'
 import { IngredientDetailsModal } from './components/IngredientDetailsModal'
 import { ProtectedRouteElement } from './components/ProtectedRouteElement'
 import { useAppData } from './hooks/useAppData'
 import { Feed } from './pages/Feed'
+import { FeedById } from './pages/FeedById'
 import { ForgotPassword } from './pages/ForgotPassword'
 import { Ingredient } from './pages/Ingredient'
 import { Main } from './pages/Main'
@@ -18,11 +20,12 @@ function App() {
 
   const location = useLocation()
   const background = location.state && location.state.background
+  const backgroundFeed = location.state && location.state.backgroundFeed
 
   return (
     <div className="container">
       <AppHeader />
-      <Routes location={background || location}>
+      <Routes location={background || backgroundFeed || location}>
         <Route path="/" element={<Main />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/login" element={<SignIn />} />
@@ -41,6 +44,9 @@ function App() {
         <Route path="/ingredients">
           <Route path=":ingredientId" element={<Ingredient />} />
         </Route>
+        <Route path="/feed">
+          <Route path=":feedId" element={<FeedById />} />
+        </Route>
       </Routes>
       <Routes>
         {background && (
@@ -48,6 +54,12 @@ function App() {
             path="/ingredients/:ingredientId"
             element={<IngredientDetailsModal />}
           />
+        )}
+        <Route path="*" element={null} />
+      </Routes>
+      <Routes>
+        {backgroundFeed && (
+          <Route path="/feed/:feedId" element={<FeedDetailsModal />} />
         )}
         <Route path="*" element={null} />
       </Routes>

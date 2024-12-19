@@ -25,26 +25,30 @@ export const Stats: FC = () => {
             Готовы:
           </div>
           <div className={styles.orders_container}>
-            {doneOrders.map(({ _id, number }) => (
-              <div
-                key={_id}
-                className={cn(
-                  'text text_type_digits-default',
-                  styles.done_color,
-                )}>
-                {number}
-              </div>
-            ))}
+            {doneOrders.length > 0
+              ? doneOrders.map(({ _id, number }) => (
+                  <div
+                    key={_id}
+                    className={cn(
+                      'text text_type_digits-default',
+                      styles.done_color,
+                    )}>
+                    {number}
+                  </div>
+                ))
+              : null}
           </div>
         </div>
         <div>
           <div className={'text text_type_main-medium mb-6'}>В работе:</div>
           <div className={styles.orders_container}>
-            {pendingOrders.map(({ _id, number }) => (
-              <div key={_id} className={'text text_type_digits-default'}>
-                {number}
-              </div>
-            ))}
+            {pendingOrders.length > 0
+              ? pendingOrders.map(({ _id, number }) => (
+                  <div key={_id} className={'text text_type_digits-default'}>
+                    {number}
+                  </div>
+                ))
+              : null}
           </div>
         </div>
       </div>

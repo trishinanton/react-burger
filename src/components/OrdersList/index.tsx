@@ -12,16 +12,9 @@ export const OrdersList: FC = () => {
 
   return (
     <div className={cn('flex-col-fs mr-15', styles.container)}>
-      {orders.map(({ _id, number, createdAt, ingredients, name }) => (
-        <OrderCard
-          key={_id}
-          number={number}
-          name={name}
-          createdAt={createdAt}
-          price={560}
-          ingredients={ingredients}
-        />
-      ))}
+      {orders.length > 0
+        ? orders.map(item => <OrderCard key={item._id} orderItem={item} />)
+        : null}
     </div>
   )
 }

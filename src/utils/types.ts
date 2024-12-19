@@ -22,3 +22,13 @@ export const IngredientItemDefault = {
   fat: 0,
   carbohydrates: 0,
 }
+
+export interface IOrder {
+  ingredients: string[]
+  _id: string
+  name: string
+  status: string
+  number: number
+  createdAt: string
+  updatedAt: string
+}

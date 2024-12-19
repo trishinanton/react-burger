@@ -22,8 +22,8 @@ export const socketMiddleware = (wsUrl: string):Middleware => {
       if (socket) {
 
         // функция, которая вызывается при открытии сокета
-        socket.onopen = event => {
-          dispatch(wsConnectionSuccess(event));
+        socket.onopen = () => {
+          dispatch(wsConnectionSuccess());
         };
 
         // функция, которая вызывается при ошибке соединения

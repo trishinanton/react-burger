@@ -1,69 +1,72 @@
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import cn from 'classnames'
 import { FC } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
+import { useFeedOrderData } from '../../../hooks/useFeedOrderData'
+import { IOrder } from '../../../utils/types'
 import { Price } from '../../Price'
 
 import styles from './OrderCard.module.css'
 
 interface Props {
-  number: number
-  name: string
-  createdAt: string
-  price: number
-  ingredients: string[]
+  orderItem: IOrder
 }
-export const OrderCard: FC<Props> = ({
-  number,
-  name,
-  createdAt,
-  price,
-  ingredients,
-}) => {
+export const OrderCard: FC<Props> = ({ orderItem }) => {
+  const { number, name, createdAt, _id } = orderItem
+  const location = useLocation()
+  const { ingredientsEntity, resultPrice } = useFeedOrderData(orderItem)
+
   return (
-    <div className={cn('p-6 mb-4', styles.wrapper)}>
-      <div className={cn('flex-row-sb', 'mb-6')}>
-        <span className="text text_type_digits-default">#{number}</span>
-        <FormattedDate
-          className="text text_type_main-default"
-          date={new Date(createdAt)}
-        />
-      </div>
-      <div className="text text_type_main-medium mb-6">{name}</div>
-      <div className={'flex-row-sb'}>
-        <div className={'flex-row'}>
-          {ingredients.map((id, index) =>
-            index < 6 ? (
-              <div
-                key={id}
-                style={{
-                  backgroundImage:
-                    'url(https://code.s3.yandex.net/react/code/bun-02.png)',
-                  zIndex: ingredients.length - index,
-                }}
-                className={cn(styles.icon, {
-                  [styles.icon_overlay]: index !== 0,
-                  [styles.icon_shadow]: index === 5,
-                })}>
-                {index === 5 ? (
-                  <span
-                    className={cn(
-                      'text text_type_digits-default',
-                      styles.icon_text,
-                    )}>
-                    +{ingredients.length - 5}
-                  </span>
-                ) : null}
-              </div>
-            ) : null,
-          )}
+    <Link
+      to={`/feed/${_id}`}
+      state={{ backgroundFeed: location }}
+      className={styles.link}>
+      <div className={cn('p-6 mb-4', styles.wrapper)}>
+        <div className={cn('flex-row-sb', 'mb-6')}>
+          <span className="text text_type_digits-default">#{number}</span>
+          <FormattedDate
+            className="text text_type_main-default"
+            date={new Date(createdAt)}
+          />
         </div>
-        <Price
-          classNameCount={'text text_type_digits-default'}
-          classNameCurrency={'text text_type_main-medium'}
-          price={price}
-        />
+        <div className="text text_type_main-medium mb-6">{name}</div>
+        <div className={'flex-row-sb'}>
+          <div className={'flex-row'}>
+            {Object.values(ingredientsEntity)
+              .filter(el => Boolean(el))
+              .map(({ _id, image }, index, arr) =>
+                index < 6 ? (
+                  <div
+                    key={_id}
+                    style={{
+                      backgroundImage: `url(${image})`,
+                      zIndex: arr.length - index,
+                    }}
+                    className={cn(styles.icon, {
+                      [styles.icon_overlay]: index !== 0,
+                      [styles.icon_shadow]: index === 5,
+                    })}>
+                    {index === 5 ? (
+                      <span
+                        className={cn(
+                          'text text_type_digits-default',
+                          styles.icon_text,
+                        )}>
+                        +{arr.length - 5}
+                      </span>
+                    ) : null}
+                  </div>
+                ) : null,
+              )}
+          </div>
+          <Price
+            classNameCount={'text text_type_digits-default'}
+            classNameCurrency={'text text_type_main-medium'}
+            price={String(resultPrice)}
+          />
+        </div>
       </div>
-    </div>
+    </Link>
   )
 }
