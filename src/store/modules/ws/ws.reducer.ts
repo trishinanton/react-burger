@@ -1,12 +1,12 @@
 import {createAction, createReducer} from "@reduxjs/toolkit";
 import {IOrder} from "../../../utils/types";
 
-const WS_CONNECTION_START: 'WS_CONNECTION_START' = 'WS_CONNECTION_START';
-const WS_CONNECTION_SUCCESS: 'WS_CONNECTION_SUCCESS' = 'WS_CONNECTION_SUCCESS';
-const WS_CONNECTION_ERROR: 'WS_CONNECTION_ERROR' = 'WS_CONNECTION_ERROR';
-const WS_CONNECTION_CLOSED: 'WS_CONNECTION_CLOSED' = 'WS_CONNECTION_CLOSED';
-const WS_GET_MESSAGE: 'WS_GET_MESSAGE' = 'WS_GET_MESSAGE';
-const WS_SEND_MESSAGE: 'WS_SEND_MESSAGE' = 'WS_SEND_MESSAGE';
+export const WS_CONNECTION_START: 'WS_CONNECTION_START' = 'WS_CONNECTION_START';
+export const WS_CONNECTION_SUCCESS: 'WS_CONNECTION_SUCCESS' = 'WS_CONNECTION_SUCCESS';
+export const WS_CONNECTION_ERROR: 'WS_CONNECTION_ERROR' = 'WS_CONNECTION_ERROR';
+export const WS_CONNECTION_CLOSED: 'WS_CONNECTION_CLOSED' = 'WS_CONNECTION_CLOSED';
+export const WS_GET_MESSAGE: 'WS_GET_MESSAGE' = 'WS_GET_MESSAGE';
+export const WS_SEND_MESSAGE: 'WS_SEND_MESSAGE' = 'WS_SEND_MESSAGE';
 
 interface IWSState {
   wsConnected: boolean;
@@ -48,7 +48,6 @@ export const reducer = createReducer(initialState, ({ addCase }) => {
   addCase(wsConnectionClosed, state => {
     state.wsConnected = false
     state.error = undefined
-    state.orders = []
   });
   addCase(wsGetMessage, (state, {payload}) => {
     const {orders, total, totalToday} = payload
@@ -59,10 +58,19 @@ export const reducer = createReducer(initialState, ({ addCase }) => {
   });
 });
 
-export type WsActions =
+export type WsActionsType =
   ReturnType<typeof wsConnectionStart>
   | ReturnType<typeof wsConnectionSuccess>
   | ReturnType<typeof wsConnectionError>
   | ReturnType<typeof wsConnectionClosed>
   | ReturnType<typeof wsGetMessage>
   | ReturnType<typeof wsSendMessage>
+
+export const wsActionsCreator = {wsConnectionSuccess,wsConnectionError,wsConnectionClosed, wsGetMessage}
+
+export interface IWsActionsCreator {
+  wsConnectionSuccess: typeof wsConnectionSuccess
+  wsConnectionError: typeof wsConnectionError
+  wsConnectionClosed: typeof wsConnectionClosed
+  wsGetMessage: typeof wsGetMessage
+}

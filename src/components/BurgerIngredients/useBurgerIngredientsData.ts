@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 
+import { useAppSelector } from '../../hooks/appHooks'
 import { selectIngredientsList } from '../../store/modules/ingredients/ingredients.selector'
 
 export const useBurgerIngredientsData = () => {
   const [current, setCurrent] = useState('buns')
-  const data = useSelector(selectIngredientsList)
+  const data = useAppSelector(selectIngredientsList)
 
   return {
     current,

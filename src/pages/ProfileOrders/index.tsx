@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 
 import { NavBar } from '../../components/NavBar'
 import { OrdersList } from '../../components/OrdersList'
 import { COOKIE_ACCESS_TOKEN } from '../../constants/cookies'
-import { AppDispatch } from '../../index'
+import { useAppDispatch } from '../../hooks/appHooks'
 import {
   wsConnectionClosed,
   wsConnectionStart,
@@ -15,7 +14,7 @@ import { wsUrl } from '../../utils/wsUrls'
 import styles from './ProfileOrders.module.css'
 
 export const ProfileOrders = () => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(

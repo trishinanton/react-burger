@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
-import { useSelector } from 'react-redux'
 
 import { selectIngredientsList } from '../store/modules/ingredients/ingredients.selector'
 import { IIngredientItem, IOrder } from '../utils/types'
+import { useAppSelector } from './appHooks'
 
 export const useFeedOrderData = (orderItem: IOrder) => {
   const { ingredients } = orderItem
-  const ingredientItems = useSelector(selectIngredientsList)
+  const ingredientItems = useAppSelector(selectIngredientsList)
 
   const ingredientsCount: Record<string, number> = {}
   const ingredientsPrice: Record<string, number> = {}

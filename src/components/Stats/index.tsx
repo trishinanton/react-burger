@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import { FC } from 'react'
-import { useSelector } from 'react-redux'
 
+import { useAppSelector } from '../../hooks/appHooks'
 import {
   selectOrders,
   selectTotalOrders,
@@ -11,9 +11,9 @@ import {
 import styles from './Stats.module.css'
 
 export const Stats: FC = () => {
-  const total = useSelector(selectTotalOrders)
-  const totalToday = useSelector(selectTotalTodayOrders)
-  const orders = useSelector(selectOrders)
+  const total = useAppSelector(selectTotalOrders)
+  const totalToday = useAppSelector(selectTotalTodayOrders)
+  const orders = useAppSelector(selectOrders)
   const doneOrders = orders.filter(({ status }) => status === 'done')
   const pendingOrders = orders.filter(({ status }) => status === 'pending')
 

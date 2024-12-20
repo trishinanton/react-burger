@@ -1,8 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { AppDispatch } from '../../../index'
+import { useAppDispatch, useAppSelector } from '../../../hooks/appHooks'
 import {
   selectAllCount,
   selectConstructorIds,
@@ -14,15 +13,15 @@ import { selectHasUser } from '../../../store/modules/user/user.selector'
 import { IIngredientItem } from '../../../utils/types'
 
 export const useFooterData = () => {
-  const hasUser = useSelector(selectHasUser)
+  const hasUser = useAppSelector(selectHasUser)
   const navigate = useNavigate()
   const [isOpenOrderModal, setIsOpenOrderModal] = useState(false)
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
 
-  const ids = useSelector(selectConstructorIds)
-  const uniqueObjectIds = useSelector(selectAllCount)
-  const list = useSelector(selectConstructorList)
-  const currentBun = useSelector(selectCurrentBun)
+  const ids = useAppSelector(selectConstructorIds)
+  const uniqueObjectIds = useAppSelector(selectAllCount)
+  const list = useAppSelector(selectConstructorList)
+  const currentBun = useAppSelector(selectCurrentBun)
 
   const onClickOrder = useCallback(() => {
     if (!hasUser) {

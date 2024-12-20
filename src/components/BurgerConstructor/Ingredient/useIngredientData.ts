@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { useCallback, useEffect } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-import { useDispatch } from 'react-redux'
 
+import { useAppDispatch } from '../../../hooks/appHooks'
 import { removeIngredient } from '../../../store/modules/constructor/constructor.reducer'
 import { IIngredientItem } from '../../../utils/types'
 
@@ -21,7 +21,7 @@ export const useIngredientData = ({
   onDropHandler,
   item,
 }: IParams) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const onDeleteElement = useCallback(() => {
     dispatch(removeIngredient(item))
   }, [])

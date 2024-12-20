@@ -1,9 +1,8 @@
 import { FC, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 
 import { OrdersList } from '../../components/OrdersList'
 import { Stats } from '../../components/Stats'
-import { AppDispatch } from '../../index'
+import { useAppDispatch } from '../../hooks/appHooks'
 import {
   wsConnectionClosed,
   wsConnectionStart,
@@ -11,7 +10,7 @@ import {
 import { wsUrlAll } from '../../utils/wsUrls'
 
 export const Feed: FC = () => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(wsConnectionStart(wsUrlAll))

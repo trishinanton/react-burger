@@ -5,19 +5,18 @@ import {
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FormEvent, useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
 
+import { useAppDispatch, useAppSelector } from '../../hooks/appHooks'
 import { useFormData } from '../../hooks/useFormData'
-import { AppDispatch } from '../../index'
 import { fetchRegister } from '../../store/modules/user/user.reducer'
 import { selectHasUser } from '../../store/modules/user/user.selector'
 
 import styles from './Register.module.css'
 
 export const Register = () => {
-  const hasUser = useSelector(selectHasUser)
-  const dispatch = useDispatch<AppDispatch>()
+  const hasUser = useAppSelector(selectHasUser)
+  const dispatch = useAppDispatch()
 
   const { values, handleChange } = useFormData()
   const { name, email, password } = values

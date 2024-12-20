@@ -4,10 +4,9 @@ import {
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ChangeEvent, FC, useCallback, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
 import { NavBar } from '../../components/NavBar'
-import { AppDispatch } from '../../index'
+import { useAppDispatch, useAppSelector } from '../../hooks/appHooks'
 import { fetchUpdateUser } from '../../store/modules/user/user.reducer'
 import {
   selectEmailUser,
@@ -17,10 +16,10 @@ import {
 import styles from './Profile.module.css'
 
 export const Profile: FC = () => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
 
-  const curName = useSelector(selectNameUser)
-  const curEmail = useSelector(selectEmailUser)
+  const curName = useAppSelector(selectNameUser)
+  const curEmail = useAppSelector(selectEmailUser)
 
   const [name, setName] = useState(curName)
   const [email, setEmail] = useState(curEmail)

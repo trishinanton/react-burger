@@ -1,15 +1,14 @@
 import cn from 'classnames'
 import { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 
-import { AppDispatch } from '../../index'
+import { useAppDispatch } from '../../hooks/appHooks'
 import { fetchLogout } from '../../store/modules/user/user.reducer'
 
 import styles from './NavBar.module.css'
 
 export const NavBar = () => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const onClickLogout = useCallback(async () => {

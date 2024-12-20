@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import { FC } from 'react'
-import { useSelector } from 'react-redux'
 
+import { useAppSelector } from '../../hooks/appHooks'
 import { selectOrders } from '../../store/modules/ws/ws.selector'
 import { OrderCard } from './OrderCard'
 
@@ -10,7 +10,7 @@ import styles from './OrdersList.module.css'
 export const OrdersList: FC<{ isProfileOrdersPage?: boolean }> = ({
   isProfileOrdersPage,
 }) => {
-  const orders = useSelector(selectOrders) || []
+  const orders = useAppSelector(selectOrders) || []
 
   return (
     <div className={cn('flex-col-fs mr-15', styles.container)}>

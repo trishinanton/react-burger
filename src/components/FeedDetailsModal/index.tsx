@@ -1,9 +1,8 @@
 import { FC, MouseEvent, useCallback, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { COOKIE_ACCESS_TOKEN } from '../../constants/cookies'
-import { AppDispatch } from '../../index'
+import { useAppDispatch, useAppSelector } from '../../hooks/appHooks'
 import {
   wsConnectionClosed,
   wsConnectionStart,
@@ -21,10 +20,10 @@ interface Props {
 export const FeedDetailsModal: FC<Props> = ({ isProfileOrdersPage }) => {
   const navigate = useNavigate()
   const { feedId } = useParams()
-  const orders = useSelector(selectOrders)
+  const orders = useAppSelector(selectOrders)
   const orderItem = orders.find((order: IOrder) => order._id === feedId)
 
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(

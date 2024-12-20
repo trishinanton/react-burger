@@ -1,21 +1,21 @@
 import type { Middleware } from '@reduxjs/toolkit';
 import {
-  WsActions,
-  wsConnectionClosed,
-  wsConnectionError,
-  wsConnectionSuccess,
-  wsGetMessage
+  IWsActionsCreator,
+  WS_CONNECTION_START,
+  WS_SEND_MESSAGE,
+  WsActionsType
 } from "../modules/ws/ws.reducer";
 
-export const socketMiddleware = ():Middleware => {
+export const socketMiddleware = (wsActionsCreator: IWsActionsCreator):Middleware => {
   return ((store ) => {
     let socket: WebSocket | null = null;
 
-    return next => (action: WsActions) => {
+    return next => (action: WsActionsType) => {
+      const {wsConnectionSuccess,wsConnectionError,wsConnectionClosed, wsGetMessage} =wsActionsCreator
       const { dispatch } = store;
       const { type, payload } = action;
 
-      if (type === 'WS_CONNECTION_START') {
+      if (type === WS_CONNECTION_START) {
         // объект класса WebSocket
         socket = new WebSocket(payload as string);
       }
@@ -41,7 +41,7 @@ export const socketMiddleware = ():Middleware => {
           dispatch(wsConnectionClosed());
         };
 
-        if (type === 'WS_SEND_MESSAGE') {
+        if (type === WS_SEND_MESSAGE) {
           const message = payload;
           // функция для отправки сообщения на сервер
           socket.send(JSON.stringify(message));

@@ -4,10 +4,10 @@ import {
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FormEvent, useCallback } from 'react'
-import { useSelector } from 'react-redux'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 import { postResetPassword } from '../../api'
+import { useAppSelector } from '../../hooks/appHooks'
 import { useFormData } from '../../hooks/useFormData'
 import { selectHasUser } from '../../store/modules/user/user.selector'
 
@@ -18,7 +18,7 @@ interface IResetPassword {
   token: string
 }
 export const ResetPassword = () => {
-  const hasUser = useSelector(selectHasUser)
+  const hasUser = useAppSelector(selectHasUser)
   const navigate = useNavigate()
   const { state } = useLocation()
 

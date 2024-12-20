@@ -1,14 +1,14 @@
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import cn from 'classnames'
 import { FC } from 'react'
-import { useSelector } from 'react-redux'
 
+import { useAppSelector } from '../../hooks/appHooks'
 import { selectNumberOrder } from '../../store/modules/order/order.selector'
 
 import styles from './OrderDetailsContent.module.css'
 
 export const OrderDetailsContent: FC = () => {
-  const numberOrder = useSelector(selectNumberOrder)
+  const numberOrder = useAppSelector(selectNumberOrder)
 
   return (
     <div className={styles.content}>
