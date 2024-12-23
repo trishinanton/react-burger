@@ -25,11 +25,13 @@ export const Modal: FC<Props & PropsWithChildren> = ({
   return createPortal(
     <>
       <div className={cn(styles.container, 'pl-10 pr-10 pb-15 pt-10')}>
-        <CloseIcon
-          onClick={onClose as () => void}
-          type="primary"
-          className={styles.close}
-        />
+        <div data-e2e-id="close-modal">
+          <CloseIcon
+            onClick={onClose as () => void}
+            type="primary"
+            className={styles.close}
+          />
+        </div>
         {children}
       </div>
       <ModalOverlay onClose={onClose} />
