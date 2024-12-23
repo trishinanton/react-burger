@@ -1,6 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-const selectUser = store => store.user
+import {RootState} from "../../../index";
+
+const selectUser = (store:RootState) => store.user
 
 export const selectHasUser = createSelector(
   [selectUser],

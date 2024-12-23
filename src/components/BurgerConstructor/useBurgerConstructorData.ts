@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react'
 import { useDrop } from 'react-dnd'
-import { useDispatch, useSelector } from 'react-redux'
 import { v1 as uuid } from 'uuid'
 
+import { useAppDispatch, useAppSelector } from '../../hooks/appHooks'
 import {
   addIngredient,
   setAllIngredients,
@@ -14,9 +14,9 @@ import {
 import { IIngredientItem } from '../../utils/types'
 
 export const useBurgerConstructorData = () => {
-  const data = useSelector(selectConstructorList)
-  const currentItemBun = useSelector(selectCurrentBun)
-  const dispatch = useDispatch()
+  const data = useAppSelector(selectConstructorList)
+  const currentItemBun = useAppSelector(selectCurrentBun)
+  const dispatch = useAppDispatch()
 
   const [hoverItemUUId, setHoverItemUUId] = useState('')
 
@@ -40,7 +40,7 @@ export const useBurgerConstructorData = () => {
         const filteredItems = data.filter(el => el.uuid !== item.uuid)
 
         const findItem = filteredItems.find(el => el.uuid === hoverItemUUId)
-        const idx = filteredItems.indexOf(findItem)
+        const idx = filteredItems.indexOf(findItem as IIngredientItem)
 
         filteredItems.splice(idx, 0, item)
 

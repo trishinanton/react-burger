@@ -5,35 +5,27 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import cn from 'classnames'
 import { FC, FormEvent, useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate, useLocation } from 'react-router-dom'
 
+import { useAppDispatch, useAppSelector } from '../../hooks/appHooks'
 import { useFormData } from '../../hooks/useFormData'
 import { fetchLogin } from '../../store/modules/user/user.reducer'
 import { selectHasUser } from '../../store/modules/user/user.selector'
 
 import styles from './SignIn.module.css'
 
-interface ILogin {
-  email: string
-  password: string
-}
-
 export const SignIn: FC = () => {
   const { state } = useLocation()
-  const hasUser = useSelector(selectHasUser)
+  const hasUser = useAppSelector(selectHasUser)
   const { values, handleChange } = useFormData()
   const { email, password } = values
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const onClick = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
-      //todo - типизировать стор
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      dispatch(fetchLogin<ILogin>(values))
+      dispatch(fetchLogin(values))
     },
     [values],
   )

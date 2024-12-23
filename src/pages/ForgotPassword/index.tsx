@@ -3,17 +3,17 @@ import {
   EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FormEvent, useCallback } from 'react'
-import { useSelector } from 'react-redux'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 import { postForgotPassword } from '../../api'
+import { useAppSelector } from '../../hooks/appHooks'
 import { useFormData } from '../../hooks/useFormData'
 import { selectHasUser } from '../../store/modules/user/user.selector'
 
 import styles from './ForgotPassword.module.css'
 
 export const ForgotPassword = () => {
-  const hasUser = useSelector(selectHasUser)
+  const hasUser = useAppSelector(selectHasUser)
   const navigate = useNavigate()
 
   const { values, handleChange } = useFormData()

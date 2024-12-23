@@ -6,8 +6,24 @@ import { getCookie, setCookie } from '../../utils/cookies'
 import { YandexApi } from '../config'
 import { resource } from '../resource'
 
-export const postRegister = <T>(body: T) =>
-  resource<T>({
+interface IRegister {
+  name: string
+  email: string
+  password: string
+}
+
+interface IUpdateUser {
+  email: string
+  name: string
+}
+
+interface ILogin {
+  email: string
+  password: string
+}
+
+export const postRegister = (body: IRegister) =>
+  resource<IRegister>({
     url: `${YandexApi}auth/register`,
     method: 'POST',
     body,
@@ -18,8 +34,8 @@ export const postRegister = <T>(body: T) =>
     return res.user
   })
 
-export const postLogin = <T>(body: T) =>
-  resource<T>({
+export const postLogin = (body: ILogin) =>
+  resource<ILogin>({
     url: `${YandexApi}auth/login`,
     method: 'POST',
     body,
@@ -73,8 +89,8 @@ export const getUser = () =>
       throw err
     })
 
-export const updateUser = <T>(body: T) =>
-  resource<T>({
+export const updateUser = (body: IUpdateUser) =>
+  resource<IUpdateUser>({
     url: `${YandexApi}auth/user`,
     method: 'PATCH',
     headers: {

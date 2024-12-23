@@ -1,7 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { constructorAdapter } from './constructor.reducer'
+import {RootState} from "../../../index";
 
-const selectConstructor = store => store.constructorIngredients
+const selectConstructor = (store:RootState) => store.constructorIngredients
 
 export const {
   selectAll: selectConstructorList,

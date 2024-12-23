@@ -1,7 +1,7 @@
 import { FC, ReactElement, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, useLocation } from 'react-router-dom'
 
+import { useAppDispatch, useAppSelector } from '../../hooks/appHooks'
 import { fetchUser } from '../../store/modules/user/user.reducer'
 import { selectHasUser } from '../../store/modules/user/user.selector'
 
@@ -10,16 +10,13 @@ interface Props {
 }
 export const ProtectedRouteElement: FC<Props> = ({ element }) => {
   const [isUserLoaded, setIsUserLoaded] = useState(false)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  const hasUser = useSelector(selectHasUser)
+  const hasUser = useAppSelector(selectHasUser)
 
   const { pathname } = useLocation()
 
   useEffect(() => {
-    //todo - типизировать стор
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
     dispatch(fetchUser())
       .unwrap()
       .then(() => {})
