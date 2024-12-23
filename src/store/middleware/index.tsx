@@ -1,2 +1,0 @@
-export {socketMiddleware} from './socketMiddleware'
-
