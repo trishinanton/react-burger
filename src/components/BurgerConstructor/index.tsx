@@ -16,7 +16,10 @@ export const BurgerConstructor: FC = () => {
   } = useBurgerConstructorData()
 
   return (
-    <div ref={dropTarget} className={styles.container}>
+    <div
+      data-e2e-id="constructor-destination"
+      ref={dropTarget}
+      className={styles.container}>
       {currentItemBun ? (
         <>
           <Ingredient item={currentItemBun} isLocked type="top" />

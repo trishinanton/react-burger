@@ -45,11 +45,13 @@ export const SignIn: FC = () => {
           placeholder="E-mail"
           isIcon={false}
           extraClass="mb-2"
+          data-e2e-id="email-input"
         />
         <PasswordInput
           onChange={handleChange}
           value={password || ''}
           name={'password'}
+          data-e2e-id="password-input"
         />
         <Button
           htmlType="submit"

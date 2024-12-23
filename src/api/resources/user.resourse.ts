@@ -16,11 +16,11 @@ interface IUpdateUser {
   email: string
   name: string
 }
-
-interface ILogin {
-  email: string
-  password: string
-}
+//
+// interface ILogin {
+//   email: string
+//   password: string
+// }
 
 export const postRegister = (body: IRegister) =>
   resource<IRegister>({
@@ -34,8 +34,8 @@ export const postRegister = (body: IRegister) =>
     return res.user
   })
 
-export const postLogin = (body: ILogin) =>
-  resource<ILogin>({
+export const postLogin = (body: IUpdateUser) =>
+  resource<IUpdateUser>({
     url: `${YandexApi}auth/login`,
     method: 'POST',
     body,
